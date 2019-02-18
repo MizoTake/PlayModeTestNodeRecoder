@@ -188,7 +188,7 @@ jobs:
           path: './Builds/$BUILD_TARGET/$BUILD_NAME/build/outputs/apk/debug/$BUILD_NAME-deubg.apk'
 workflows:
   version: 2
-  test_and_build:
+  test:
     jobs:
       - test_playmode
       - test_editmode
