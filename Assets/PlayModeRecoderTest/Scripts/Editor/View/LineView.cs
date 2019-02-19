@@ -5,20 +5,23 @@ using UnityEngine;
 
 namespace PlayModeRecoderTest
 {
-    public class Line : IDrawable
+    partial class LineView
     {
 
-        private Node start;
-        private Node end;
+        private NodeView start;
+        private NodeView end;
         private float width;
 
-        public Line (Node start, Node end, float width = 3f)
+        public LineView (NodeView start, NodeView end, float width = 3f)
         {
             this.start = start;
             this.end = end;
             this.width = width;
         }
+    }
 
+    partial class LineView : IDrawable
+    {
         public void Draw ()
         {
             var startPos = start.CenterHeightPositon;

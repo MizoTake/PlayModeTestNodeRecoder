@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace PlayModeRecoderTest
 {
-    public interface IChoosable
+    public enum MenuType
     {
-        SegueProcess[] ItemData { get; }
-        void Choice (GUIContent select);
+        Node,
+        Window
     }
 }

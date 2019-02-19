@@ -190,5 +190,5 @@ workflows:
   version: 2
   test:
     jobs:
-      - test_playmode
       - test_editmode
+      # - test_playmode
