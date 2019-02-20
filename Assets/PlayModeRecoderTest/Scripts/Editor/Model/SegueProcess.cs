@@ -6,8 +6,8 @@ namespace PlayModeRecoderTest
 {
     public struct SegueProcess
     {
-        public static string Transition = "Transition";
-        public static string Make = "Make";
-        public static string Delete = "Delete";
+        public const string Transition = "Transition";
+        public const string Make = "Make";
+        public const string Delete = "Delete";
     }
 }

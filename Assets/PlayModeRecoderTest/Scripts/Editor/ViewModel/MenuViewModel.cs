@@ -38,12 +38,13 @@ namespace PlayModeRecoderTest
 
         public void Choice (object select)
         {
-            var type = (MenuType) Enum.Parse (typeof (MenuType), select.ToString (), true);
-            switch (type)
+            switch (select.ToString ())
             {
-                case MenuType.Node:
+                case SegueProcess.Transition:
                     break;
-                case MenuType.Window:
+                case SegueProcess.Make:
+                    break;
+                case SegueProcess.Delete:
                     break;
             }
         }
