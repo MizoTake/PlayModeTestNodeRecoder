@@ -6,7 +6,7 @@ namespace PlayModeRecoderTest
 {
     struct WindowSegue
     {
-        public static SegueProcess[] Items => new SegueProcess[]
+        public static string[] Items => new string[]
         {
             SegueProcess.Make,
             SegueProcess.Delete

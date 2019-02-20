@@ -19,7 +19,7 @@ namespace PlayModeRecoderTest
 
     partial class MenuViewModel : IChoosable
     {
-        public SegueProcess[] ItemData
+        public string[] ItemData
         {
             get
             {

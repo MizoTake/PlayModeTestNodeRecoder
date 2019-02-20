@@ -6,7 +6,7 @@ namespace PlayModeRecoderTest
 {
     public interface IChoosable
     {
-        SegueProcess[] ItemData { get; }
+        string[] ItemData { get; }
         void Choice (GUIContent select);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -25,14 +26,14 @@ namespace PlayModeRecoderTest.Tests
         public void MenuTypeNode ()
         {
             var viewModel = new MenuViewModel (MenuType.Node);
-            Assert.AreEqual (NodeSegue.Items, viewModel.ItemData);
+            Assert.IsTrue (NodeSegue.Items.SequenceEqual (viewModel.ItemData));
         }
 
         [Test]
         public void MenuTypeWindow ()
         {
             var viewModel = new MenuViewModel (MenuType.Window);
-            Assert.AreEqual (WindowSegue.Items, viewModel.ItemData);
+            Assert.IsTrue (WindowSegue.Items.SequenceEqual (viewModel.ItemData));
         }
     }
 }

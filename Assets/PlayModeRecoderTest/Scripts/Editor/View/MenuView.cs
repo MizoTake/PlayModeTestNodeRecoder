@@ -17,11 +17,11 @@ namespace PlayModeRecoderTest
             CreateList (viewModel.ItemData);
         }
 
-        private void CreateList (SegueProcess[] data)
+        private void CreateList (string[] data)
         {
             foreach (var item in data)
             {
-                drawingMenu.AddItem (new GUIContent (item.Name), false, null, item.Name);
+                drawingMenu.AddItem (new GUIContent (item), false, null, item);
                 drawingMenu.AddSeparator ("");
             }
         }

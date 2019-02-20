@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace PlayModeRecoderTest
 {
-    public class SegueProcess : Enumeration
+    public struct SegueProcess
     {
-        public static SegueProcess Transition;
-        public static SegueProcess Make;
-        public static SegueProcess Delete;
+        public static string Transition = "Transition";
+        public static string Make = "Make";
+        public static string Delete = "Delete";
     }
 }
