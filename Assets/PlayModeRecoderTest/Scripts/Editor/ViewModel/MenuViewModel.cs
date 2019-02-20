@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -35,9 +36,16 @@ namespace PlayModeRecoderTest
             }
         }
 
-        public void Choice (GUIContent select)
+        public void Choice (object select)
         {
-
+            var type = (MenuType) Enum.Parse (typeof (MenuType), select.ToString (), true);
+            switch (type)
+            {
+                case MenuType.Node:
+                    break;
+                case MenuType.Window:
+                    break;
+            }
         }
     }
 }

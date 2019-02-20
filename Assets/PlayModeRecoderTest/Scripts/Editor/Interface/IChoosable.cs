@@ -7,6 +7,6 @@ namespace PlayModeRecoderTest
     public interface IChoosable
     {
         string[] ItemData { get; }
-        void Choice (GUIContent select);
+        void Choice (object select);
     }
 }

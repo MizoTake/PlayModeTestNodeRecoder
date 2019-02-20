@@ -19,7 +19,6 @@ namespace PlayModeRecoderTest
             {
                 case EventType.MouseDown:
                     nodeMenu.Draw ();
-                    Debug.Log ("draw");
                     break;
                 default:
                     Assert.IsTrue (false, "何でここ通っとんねん");

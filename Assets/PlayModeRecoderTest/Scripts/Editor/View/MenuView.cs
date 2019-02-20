@@ -21,7 +21,7 @@ namespace PlayModeRecoderTest
         {
             foreach (var item in data)
             {
-                drawingMenu.AddItem (new GUIContent (item), false, null, item);
+                drawingMenu.AddItem (new GUIContent (item), false, viewModel.Choice, item);
                 drawingMenu.AddSeparator ("");
             }
         }
