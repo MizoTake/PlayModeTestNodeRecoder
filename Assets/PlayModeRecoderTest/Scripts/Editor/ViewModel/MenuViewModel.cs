@@ -30,7 +30,7 @@ namespace PlayModeRecoderTest
                     case MenuType.Window:
                         return WindowSegue.Items;
                 }
-                Assert.IsTrue (false); // switchで返るはずなのでここまで来ない
+                Assert.IsTrue (false, "何でここ通っとんねん");
                 return null;
             }
         }

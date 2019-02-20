@@ -2,10 +2,34 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Assert = UnityEngine.Assertions.Assert;
 
 namespace PlayModeRecoderTest
 {
-    public class TestNodeWindowPresenter : EditorWindow
+    using Menu = MenuView;
+    partial class TestNodeWindowPresenter
+    {
+
+        Menu nodeMenu = new Menu (MenuType.Node);
+        Menu windowMenu = new Menu (MenuType.Window);
+
+        private void Dispatch (Event current)
+        {
+            switch (current.type)
+            {
+                case EventType.MouseDown:
+                    nodeMenu.Draw ();
+                    Debug.Log ("draw");
+                    break;
+                default:
+                    Assert.IsTrue (false, "何でここ通っとんねん");
+                    break;
+            }
+            current.Use ();
+        }
+    }
+
+    partial class TestNodeWindowPresenter : EditorWindow
     {
         [MenuItem ("Window/Test Node Editor")]
         static void Open ()
@@ -16,22 +40,11 @@ namespace PlayModeRecoderTest
 
         void OnGUI ()
         {
-            if (Event.current.button != -1)
+            var current = Event.current;
+            if (current.type == EventType.MouseDown)
             {
-                Dispatch (Event.current);
+                Dispatch (current);
             }
-        }
-
-        void Dispatch (Event current)
-        {
-            switch (current.type)
-            {
-                case EventType.MouseDown:
-                    break;
-                default:
-                    break;
-            }
-            current.Use ();
         }
     }
 }
