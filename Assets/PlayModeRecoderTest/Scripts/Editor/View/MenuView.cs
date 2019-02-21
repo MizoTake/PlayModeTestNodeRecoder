@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 namespace PlayModeRecoderTest
 {
     using ViewModel = MenuViewModel;
-    partial class MenuView
+    partial class MenuView : IViewable
     {
-        private IViewModel viewModel;
+        private MenuViewModel viewModel;
         private GenericMenu drawingMenu = new GenericMenu ();
 
         public MenuView (MenuType type)
@@ -22,9 +23,14 @@ namespace PlayModeRecoderTest
             foreach (var item in data)
             {
                 drawingMenu.AddItem (new GUIContent (item), false, viewModel.Choice, item);
-                drawingMenu.AddSeparator ("");
+                if (item != data.Last ()) drawingMenu.AddSeparator ("");
             }
         }
+    }
+
+    partial class MenuView : ISelected
+    {
+        public string Selected => viewModel.Selected;
     }
 
     partial class MenuView : IDrawable

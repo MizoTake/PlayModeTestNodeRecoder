@@ -11,10 +11,16 @@ namespace PlayModeRecoderTest
         public Vector2 Position => new Vector2 (rect.x, rect.height);
         public Vector2 CenterHeightPositon => new Vector2 (rect.x, rect.y / 2.0f);
         public Vector2 Size => new Vector2 (rect.width, rect.height);
+        public int? Id { get; set; } = null;
 
         public NodeView (Vector2 position, Vector2 size)
         {
             rect = new Rect (position.x, position.y, size.x, size.y);
+        }
+
+        static void DrawNodeWindow (int id)
+        {
+            GUI.DragWindow ();
         }
     }
 
@@ -22,7 +28,7 @@ namespace PlayModeRecoderTest
     {
         public void Draw ()
         {
-            GUI.DragWindow ();
+            GUI.Window (Id.Value, rect, NodeView.DrawNodeWindow, "NodeView");
         }
     }
 }

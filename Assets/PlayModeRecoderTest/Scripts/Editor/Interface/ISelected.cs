@@ -4,5 +4,8 @@ using UnityEngine;
 
 namespace PlayModeRecoderTest
 {
-    interface IViewModel : IChoosable { }
+    public interface ISelected
+    {
+        string Selected { get; }
+    }
 }

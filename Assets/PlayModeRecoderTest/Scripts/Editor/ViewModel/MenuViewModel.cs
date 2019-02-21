@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-using Assert = UnityEngine.Assertions.Assert;
 
 [assembly : InternalsVisibleTo ("Tests")]
 namespace PlayModeRecoderTest
@@ -11,6 +10,8 @@ namespace PlayModeRecoderTest
     partial class MenuViewModel
     {
         private MenuType type;
+        private string selectedMenuTitle;
+        public string Selected => selectedMenuTitle;
 
         public MenuViewModel (MenuType type)
         {
@@ -18,7 +19,7 @@ namespace PlayModeRecoderTest
         }
     }
 
-    partial class MenuViewModel : IViewModel
+    partial class MenuViewModel : IChoosable
     {
         public string[] ItemData
         {
@@ -37,17 +38,7 @@ namespace PlayModeRecoderTest
 
         public void Choice (object select)
         {
-            switch (select.ToString ())
-            {
-                case SegueProcess.Transition:
-                    break;
-                case SegueProcess.Make:
-                    break;
-                case SegueProcess.Delete:
-                    break;
-                default:
-                    throw new Exception (Application.productName + " Error");
-            }
+            selectedMenuTitle = select.ToString ();
         }
     }
 }

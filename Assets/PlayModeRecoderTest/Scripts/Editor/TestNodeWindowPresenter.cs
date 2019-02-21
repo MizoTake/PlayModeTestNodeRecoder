@@ -7,12 +7,13 @@ using Assert = UnityEngine.Assertions.Assert;
 
 namespace PlayModeRecoderTest
 {
+    using Model = TestNodeWindowModel;
     using Menu = MenuView;
     partial class TestNodeWindowPresenter
     {
-
-        IDrawable nodeMenu = new Menu (MenuType.Node);
-        IDrawable windowMenu = new Menu (MenuType.Window);
+        private Model model = new Model ();
+        private IViewable nodeMenu = new Menu (MenuType.Node);
+        private IViewable windowMenu = new Menu (MenuType.Window);
 
         private void Dispatch (Event current)
         {
@@ -25,6 +26,12 @@ namespace PlayModeRecoderTest
                     throw new Exception (Application.productName + " Error");
             }
             current.Use ();
+
+            switch (nodeMenu.Selected)
+            {
+
+            }
+            model.CreateNode (current.mousePosition);
         }
     }
 
@@ -44,6 +51,12 @@ namespace PlayModeRecoderTest
             {
                 Dispatch (current);
             }
+            BeginWindows ();
+            foreach (var node in model.NodeViews)
+            {
+                node.Draw ();
+            }
+            EndWindows ();
         }
     }
 }

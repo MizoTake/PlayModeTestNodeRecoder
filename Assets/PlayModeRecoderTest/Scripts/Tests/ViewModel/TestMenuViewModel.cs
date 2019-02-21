@@ -25,14 +25,14 @@ namespace PlayModeRecoderTest.Tests
         [Test]
         public void MenuTypeNode ()
         {
-            IViewModel viewModel = new MenuViewModel (MenuType.Node);
+            IChoosable viewModel = new MenuViewModel (MenuType.Node);
             Assert.IsTrue (NodeSegue.Items.SequenceEqual (viewModel.ItemData));
         }
 
         [Test]
         public void MenuTypeWindow ()
         {
-            IViewModel viewModel = new MenuViewModel (MenuType.Window);
+            IChoosable viewModel = new MenuViewModel (MenuType.Window);
             Assert.IsTrue (WindowSegue.Items.SequenceEqual (viewModel.ItemData));
         }
 
@@ -40,7 +40,7 @@ namespace PlayModeRecoderTest.Tests
         public void SelectItemTypeNode ()
         {
             var returnFlag = false;
-            IViewModel viewModel = new MenuViewModel (MenuType.Node);
+            IChoosable viewModel = new MenuViewModel (MenuType.Node);
             Assert.IsTrue (NodeSegue.Items.SequenceEqual (viewModel.ItemData));
             viewModel.Choice (SegueProcess.Transition);
             viewModel.Choice (SegueProcess.Make);
@@ -59,7 +59,7 @@ namespace PlayModeRecoderTest.Tests
         [Test]
         public void SelectItemTypeWindow ()
         {
-            IViewModel viewModel = new MenuViewModel (MenuType.Window);
+            IChoosable viewModel = new MenuViewModel (MenuType.Window);
             Assert.IsTrue (WindowSegue.Items.SequenceEqual (viewModel.ItemData));
         }
     }
