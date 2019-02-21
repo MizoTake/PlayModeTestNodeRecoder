@@ -8,7 +8,7 @@ namespace PlayModeRecoderTest
     using ViewModel = MenuViewModel;
     partial class MenuView
     {
-        private ViewModel viewModel;
+        private IViewModel viewModel;
         private GenericMenu drawingMenu = new GenericMenu ();
 
         public MenuView (MenuType type)

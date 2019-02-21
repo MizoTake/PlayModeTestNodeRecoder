@@ -18,7 +18,7 @@ namespace PlayModeRecoderTest
         }
     }
 
-    partial class MenuViewModel : IChoosable
+    partial class MenuViewModel : IViewModel
     {
         public string[] ItemData
         {
@@ -31,8 +31,7 @@ namespace PlayModeRecoderTest
                     case MenuType.Window:
                         return WindowSegue.Items;
                 }
-                Assert.IsTrue (false, "何でここ通っとんねん");
-                return null;
+                throw new Exception (Application.productName + " Error");
             }
         }
 
@@ -46,6 +45,8 @@ namespace PlayModeRecoderTest
                     break;
                 case SegueProcess.Delete:
                     break;
+                default:
+                    throw new Exception (Application.productName + " Error");
             }
         }
     }

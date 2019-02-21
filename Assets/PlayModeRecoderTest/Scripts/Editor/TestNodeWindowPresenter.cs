@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -10,8 +11,8 @@ namespace PlayModeRecoderTest
     partial class TestNodeWindowPresenter
     {
 
-        Menu nodeMenu = new Menu (MenuType.Node);
-        Menu windowMenu = new Menu (MenuType.Window);
+        IDrawable nodeMenu = new Menu (MenuType.Node);
+        IDrawable windowMenu = new Menu (MenuType.Window);
 
         private void Dispatch (Event current)
         {
@@ -21,8 +22,7 @@ namespace PlayModeRecoderTest
                     nodeMenu.Draw ();
                     break;
                 default:
-                    Assert.IsTrue (false, "何でここ通っとんねん");
-                    break;
+                    throw new Exception (Application.productName + " Error");
             }
             current.Use ();
         }
