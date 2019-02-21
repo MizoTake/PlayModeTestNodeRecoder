@@ -29,7 +29,7 @@ namespace PlayModeRecoderTest.Tests
             {
                 model.CreateNode (Vector2.zero);
             }
-            Assert.AreEqual (model.NodeViews.Count, rand - 1);
+            Assert.AreEqual (model.NodeViews.Count, rand);
         }
     }
 }

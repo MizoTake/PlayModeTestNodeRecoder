@@ -38,7 +38,12 @@ namespace PlayModeRecoderTest
 
         public void Choice (object select)
         {
-            selectedMenuTitle = select.ToString ();
+            var selected = select.ToString ();
+            if (selected.Equals (""))
+            {
+                throw new Exception (Application.productName + " Error");
+            }
+            selectedMenuTitle = selected;
         }
     }
 }
