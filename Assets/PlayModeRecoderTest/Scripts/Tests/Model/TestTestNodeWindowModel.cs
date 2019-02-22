@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace PlayModeRecoderTest.Tests
+namespace PlayModeRecorderTest.Tests
 {
     public class TestTestNodeWindowModel
     {

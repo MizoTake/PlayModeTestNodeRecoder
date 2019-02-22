@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace PlayModeRecoderTest
+namespace PlayModeRecorderTest
 {
     using ViewModel = MenuViewModel;
     partial class MenuView : IViewable

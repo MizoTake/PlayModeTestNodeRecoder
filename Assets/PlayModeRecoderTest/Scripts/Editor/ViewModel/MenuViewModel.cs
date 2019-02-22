@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [assembly : InternalsVisibleTo ("Tests")]
-namespace PlayModeRecoderTest
+namespace PlayModeRecorderTest
 {
     partial class MenuViewModel
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PlayModeRecoderTest
+namespace PlayModeRecorderTest
 {
     public interface IDrawable
     {

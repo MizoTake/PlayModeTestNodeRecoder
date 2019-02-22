@@ -1,7 +1,7 @@
 {
     "name": "Tests",
     "references": [
-        "PlayModeRecoderTest"
+        "PlayModeRecorderTest"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"

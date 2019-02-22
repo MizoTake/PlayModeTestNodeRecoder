@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [assembly : InternalsVisibleTo ("Tests")]
-namespace PlayModeRecoderTest
+namespace PlayModeRecorderTest
 {
     using Node = NodeView;
     using Line = LineView;

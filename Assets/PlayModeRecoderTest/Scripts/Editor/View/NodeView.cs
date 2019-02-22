@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace PlayModeRecoderTest
+namespace PlayModeRecorderTest
 {
     partial class NodeView
     {
