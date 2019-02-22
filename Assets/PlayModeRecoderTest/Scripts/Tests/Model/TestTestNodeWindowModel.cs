@@ -22,7 +22,7 @@ namespace PlayModeRecoderTest.Tests
         [Test]
         public void CreateNodeCount ()
         {
-            var model = new TestNodeWindowModel ();
+            var model = new TestNodeWindowViewModel ();
             Assert.AreEqual (model.NodeViews.Count, 0);
             var rand = Random.Range (0, 10);
             for (var i = 0; i < rand; i++)

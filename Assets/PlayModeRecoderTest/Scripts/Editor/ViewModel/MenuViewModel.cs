@@ -11,11 +11,25 @@ namespace PlayModeRecoderTest
     {
         private MenuType type;
         private string selectedMenuTitle;
-        public string Selected => selectedMenuTitle;
 
         public MenuViewModel (MenuType type)
         {
             this.type = type;
+        }
+    }
+
+    partial class MenuViewModel : ISelected
+    {
+        public string Selected
+        {
+            get
+            {
+                return selectedMenuTitle;
+            }
+            set
+            {
+                selectedMenuTitle = value;
+            }
         }
     }
 
@@ -39,10 +53,6 @@ namespace PlayModeRecoderTest
         public void Choice (object select)
         {
             var selected = select.ToString ();
-            if (selected.Equals (""))
-            {
-                throw new Exception (Application.productName + " Error");
-            }
             selectedMenuTitle = selected;
         }
     }

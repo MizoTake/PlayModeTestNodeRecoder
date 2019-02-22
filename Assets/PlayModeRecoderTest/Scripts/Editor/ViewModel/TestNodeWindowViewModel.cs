@@ -7,7 +7,7 @@ using UnityEngine;
 namespace PlayModeRecoderTest
 {
     using Node = NodeView;
-    class TestNodeWindowModel
+    class TestNodeWindowViewModel
     {
         private List<Node> nodeViews = new List<Node> ();
         public IReadOnlyList<Node> NodeViews => nodeViews;
@@ -17,6 +17,20 @@ namespace PlayModeRecoderTest
             var node = new Node (position, Vector2.one * 100);
             node.Id = nodeViews.Count;
             nodeViews.Add (node);
+        }
+
+        public bool ClickOnNode (Vector2 mousePos)
+        {
+            bool onNode = false;
+            for (int i = 0; i < nodeViews.Count; i++)
+            {
+                if (nodeViews[i].ViewableRect.Contains (mousePos))
+                {
+                    onNode = true;
+                    break;
+                }
+            }
+            return onNode;
         }
     }
 }

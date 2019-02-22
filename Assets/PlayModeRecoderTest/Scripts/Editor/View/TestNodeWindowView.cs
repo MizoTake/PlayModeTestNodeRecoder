@@ -7,40 +7,54 @@ using Assert = UnityEngine.Assertions.Assert;
 
 namespace PlayModeRecoderTest
 {
-    using Model = TestNodeWindowModel;
+    using ViewModel = TestNodeWindowViewModel;
     using Menu = MenuView;
-    partial class TestNodeWindowPresenter
+    partial class TestNodeWindowView
     {
-        private Model model = new Model ();
+        private ViewModel viewModel = new ViewModel ();
         private IViewable nodeMenu = new Menu (MenuType.Node);
         private IViewable windowMenu = new Menu (MenuType.Window);
 
         private void Dispatch (Event current)
         {
+            var onNode = viewModel.ClickOnNode (current.mousePosition);
             switch (current.type)
             {
                 case EventType.MouseDown:
-                    nodeMenu.Draw ();
+                    if (onNode)
+                    {
+                        nodeMenu.Draw ();
+                    }
+                    else
+                    {
+                        windowMenu.Draw ();
+                    }
                     break;
                 default:
                     throw new Exception (Application.productName + " Error");
             }
-            current.Use ();
 
-            switch (nodeMenu.Selected)
+            var selected = (onNode) ? nodeMenu.Selected : windowMenu.Selected;
+            switch (selected)
             {
-
+                case SegueProcess.Transition:
+                    break;
+                case SegueProcess.Make:
+                    viewModel.CreateNode (current.mousePosition);
+                    break;
+                case SegueProcess.Delete:
+                    break;
             }
-            model.CreateNode (current.mousePosition);
+            current.Use ();
         }
     }
 
-    partial class TestNodeWindowPresenter : EditorWindow
+    partial class TestNodeWindowView : EditorWindow
     {
         [MenuItem ("Window/Test Node Editor")]
         static void Open ()
         {
-            var nodeEditorWindow = CreateInstance<TestNodeWindowPresenter> ();
+            var nodeEditorWindow = CreateInstance<TestNodeWindowView> ();
             nodeEditorWindow.Show ();
         }
 
@@ -52,7 +66,7 @@ namespace PlayModeRecoderTest
                 Dispatch (current);
             }
             BeginWindows ();
-            foreach (var node in model.NodeViews)
+            foreach (var node in viewModel.NodeViews)
             {
                 node.Draw ();
             }

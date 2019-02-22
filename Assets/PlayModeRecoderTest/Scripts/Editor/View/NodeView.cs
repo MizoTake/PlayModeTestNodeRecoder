@@ -11,6 +11,7 @@ namespace PlayModeRecoderTest
         public Vector2 Position => new Vector2 (rect.x, rect.height);
         public Vector2 CenterHeightPositon => new Vector2 (rect.x, rect.y / 2.0f);
         public Vector2 Size => new Vector2 (rect.width, rect.height);
+        public Rect ViewableRect => rect;
         public int? Id { get; set; } = null;
 
         public NodeView (Vector2 position, Vector2 size)

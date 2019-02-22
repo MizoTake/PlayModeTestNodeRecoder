@@ -30,7 +30,15 @@ namespace PlayModeRecoderTest
 
     partial class MenuView : ISelected
     {
-        public string Selected => viewModel.Selected;
+        public string Selected
+        {
+            get
+            {
+                var selected = viewModel.Selected;
+                viewModel.Selected = "";
+                return selected;
+            }
+        }
     }
 
     partial class MenuView : IDrawable
