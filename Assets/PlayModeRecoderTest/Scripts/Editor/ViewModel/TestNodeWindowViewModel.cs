@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace PlayModeRecoderTest
         private List<Line> lineViews = new List<Line> ();
         public IReadOnlyList<Node> NodeViews => nodeViews;
         public IReadOnlyList<Line> LineViews => lineViews;
+        public Line LastCreatedLine => lineViews.Count > 0 ? lineViews.Last () : null;
 
         public void CreateNode (Vector2 position)
         {
@@ -22,18 +24,24 @@ namespace PlayModeRecoderTest
             nodeViews.Add (node);
         }
 
-        public bool ClickOnNode (Vector2 mousePos)
+        public void CreateLine (Node start, Vector2 mousePosition)
         {
-            bool onNode = false;
+            var line = new Line (start.CenterHeightPositon, mousePosition);
+            lineViews.Add (line);
+        }
+
+        public Node ClickOnNode (Vector2 mousePos)
+        {
+            Node result = null;
             for (int i = 0; i < nodeViews.Count; i++)
             {
                 if (nodeViews[i].ViewableRect.Contains (mousePos))
                 {
-                    onNode = true;
+                    result = nodeViews[i];
                     break;
                 }
             }
-            return onNode;
+            return result;
         }
     }
 }

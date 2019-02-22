@@ -17,10 +17,12 @@ namespace PlayModeRecoderTest
 
         private void Dispatch (Event current)
         {
-            var onNode = viewModel.ClickOnNode (current.mousePosition);
-            switch (current.type)
+            var selectedNode = viewModel.ClickOnNode (current.mousePosition);
+            var onNode = selectedNode != null;
+            switch (current.button)
             {
-                case EventType.MouseDown:
+                // 右クリック
+                case 1:
                     if (onNode)
                     {
                         nodeMenu.Draw ();
@@ -30,14 +32,13 @@ namespace PlayModeRecoderTest
                         windowMenu.Draw ();
                     }
                     break;
-                default:
-                    throw Error.ProductError ();
             }
 
             var selected = (onNode) ? nodeMenu.Selected : windowMenu.Selected;
             switch (selected)
             {
                 case SegueProcess.Transition:
+                    viewModel.CreateLine (selectedNode, current.mousePosition);
                     break;
                 case SegueProcess.Make:
                     viewModel.CreateNode (current.mousePosition);
@@ -65,12 +66,25 @@ namespace PlayModeRecoderTest
             {
                 Dispatch (current);
             }
+            if (viewModel.LastCreatedLine != null)
+            {
+                viewModel.LastCreatedLine.UpdateEndPoint (current.mousePosition);
+            }
+            foreach (var line in viewModel.LineViews)
+            {
+                line.Draw ();
+            }
             BeginWindows ();
             foreach (var node in viewModel.NodeViews)
             {
                 node.Draw ();
             }
             EndWindows ();
+        }
+
+        void Update ()
+        {
+            Repaint ();
         }
     }
 }
