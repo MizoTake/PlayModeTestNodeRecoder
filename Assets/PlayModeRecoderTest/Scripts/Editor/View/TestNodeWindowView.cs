@@ -31,7 +31,7 @@ namespace PlayModeRecoderTest
                     }
                     break;
                 default:
-                    throw new Exception (Application.productName + " Error");
+                    throw Error.ProductError ();
             }
 
             var selected = (onNode) ? nodeMenu.Selected : windowMenu.Selected;

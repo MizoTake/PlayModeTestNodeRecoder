@@ -7,10 +7,13 @@ using UnityEngine;
 namespace PlayModeRecoderTest
 {
     using Node = NodeView;
+    using Line = LineView;
     class TestNodeWindowViewModel
     {
         private List<Node> nodeViews = new List<Node> ();
+        private List<Line> lineViews = new List<Line> ();
         public IReadOnlyList<Node> NodeViews => nodeViews;
+        public IReadOnlyList<Line> LineViews => lineViews;
 
         public void CreateNode (Vector2 position)
         {

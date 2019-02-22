@@ -46,7 +46,7 @@ namespace PlayModeRecoderTest
                     case MenuType.Window:
                         return WindowSegue.Items;
                 }
-                throw new Exception (Application.productName + " Error");
+                throw Error.ProductError ();
             }
         }
 
