@@ -11,11 +11,22 @@ namespace PlayModeRecorderTest
     using Line = LineView;
     class TestNodeWindowViewModel
     {
+        private Line lastCreatedLine = null;
         private List<Node> nodeViews = new List<Node> ();
         private List<Line> lineViews = new List<Line> ();
         public IReadOnlyList<Node> NodeViews => nodeViews;
         public IReadOnlyList<Line> LineViews => lineViews;
-        public Line LastCreatedLine => lineViews.Count > 0 ? lineViews.Last () : null;
+        public Line LastCreatedLine
+        {
+            get
+            {
+                return lastCreatedLine;
+            }
+            private set
+            {
+                lastCreatedLine = value;
+            }
+        }
 
         public void CreateNode (Vector2 position)
         {
@@ -24,12 +35,22 @@ namespace PlayModeRecorderTest
             nodeViews.Add (node);
         }
 
-        public void CreateLine (Node start, Vector2 mousePosition)
+        public void CreateLine (Node start, Vector2 mousePosition, Node selected)
         {
             var lineX = start.ViewableRect.x + start.ViewableRect.width;
             var lineY = start.ViewableRect.y + (start.ViewableRect.height / 2f);
             var line = new Line (new Vector2 (lineX, lineY), mousePosition);
+            selected.StartLine = line;
+            lastCreatedLine = line;
             lineViews.Add (line);
+        }
+
+        public void ConnectNode (Vector2 mousePos)
+        {
+            if (lastCreatedLine == null) return;
+            var selectedNode = ClickOnNode (mousePos);
+            selectedNode.EndLine = LastCreatedLine;
+            lastCreatedLine = null;
         }
 
         public Node ClickOnNode (Vector2 mousePos)

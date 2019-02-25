@@ -12,43 +12,45 @@ namespace PlayModeRecorderTest
     using Node = NodeView;
     partial class TestNodeWindowView
     {
-        private ViewModel viewModel = new ViewModel();
-        private IViewable nodeMenu = new Menu(MenuType.Node);
-        private IViewable windowMenu = new Menu(MenuType.Window);
+        private ViewModel viewModel = new ViewModel ();
+        private IViewable nodeMenu = new Menu (MenuType.Node);
+        private IViewable windowMenu = new Menu (MenuType.Window);
         private Node selectedNode = null;
 
-        private void Dispatch(Event current)
+        private void Dispatch (Event current)
         {
-            selectedNode = viewModel.ClickOnNode(current.mousePosition);
+            selectedNode = viewModel.ClickOnNode (current.mousePosition);
             var onNode = selectedNode != null;
             switch (current.button)
             {
-                // 右クリック
-                case 1:
+                case 0:
+                    viewModel.ConnectNode (current.mousePosition);
+                    break;
+                case 1: // 右クリック
                     if (onNode)
                     {
-                        nodeMenu.Draw();
+                        nodeMenu.Draw ();
                     }
                     else
                     {
-                        windowMenu.Draw();
+                        windowMenu.Draw ();
                     }
                     break;
             }
-            current.Use();
+            current.Use ();
         }
 
-        private void SelectedAction(Event current)
+        private void SelectedAction (Event current)
         {
             var onNode = selectedNode != null;
-            var selected = (onNode) ? nodeMenu.Selected : windowMenu.Selected;
+            var selected = onNode ? nodeMenu.Selected : windowMenu.Selected;
             switch (selected)
             {
                 case SegueProcess.Transition:
-                    viewModel.CreateLine(selectedNode, current.mousePosition);
+                    viewModel.CreateLine (selectedNode, current.mousePosition, selectedNode);
                     break;
                 case SegueProcess.Make:
-                    viewModel.CreateNode(current.mousePosition);
+                    viewModel.CreateNode (current.mousePosition);
                     break;
                 case SegueProcess.Delete:
                     break;
@@ -58,40 +60,40 @@ namespace PlayModeRecorderTest
 
     partial class TestNodeWindowView : EditorWindow
     {
-        [MenuItem("Window/Test Node Editor")]
-        static void Open()
+        [MenuItem ("Window/Test Node Editor")]
+        static void Open ()
         {
-            var nodeEditorWindow = CreateInstance<TestNodeWindowView>();
-            nodeEditorWindow.Show();
+            var nodeEditorWindow = CreateInstance<TestNodeWindowView> ();
+            nodeEditorWindow.Show ();
         }
 
-        void OnGUI()
+        void OnGUI ()
         {
             var current = Event.current;
-            SelectedAction(current);
+            SelectedAction (current);
             if (current.type == EventType.MouseDown)
             {
-                Dispatch(current);
+                Dispatch (current);
             }
             if (viewModel.LastCreatedLine != null)
             {
-                viewModel.LastCreatedLine.UpdateEndPoint(current.mousePosition);
+                viewModel.LastCreatedLine.UpdateEndPoint (current.mousePosition);
             }
             foreach (var line in viewModel.LineViews)
             {
-                line.Draw();
+                line.Draw ();
             }
-            BeginWindows();
+            BeginWindows ();
             foreach (var node in viewModel.NodeViews)
             {
-                node.Draw();
+                node.Draw ();
             }
-            EndWindows();
+            EndWindows ();
         }
 
-        void Update()
+        void Update ()
         {
-            Repaint();
+            Repaint ();
         }
     }
 }
