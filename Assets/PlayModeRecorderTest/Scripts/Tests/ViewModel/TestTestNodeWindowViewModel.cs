@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PlayModeRecorderTest.Tests
 {
-    public class TestTestNodeWindowviewModel
+    public class TestTestNodeWindowViewModel
     {
         [SetUp]
         public void SetUp ()

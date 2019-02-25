@@ -29,7 +29,7 @@ namespace PlayModeRecorderTest
     {
         public void Draw ()
         {
-            GUI.Window (Id.Value, rect, NodeView.DrawNodeWindow, "NodeView");
+            GUI.Window (Id.Value, rect, NodeView.DrawNodeWindow, "NodeView" + Id.Value);
         }
     }
 }
