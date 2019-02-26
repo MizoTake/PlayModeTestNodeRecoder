@@ -29,11 +29,6 @@ namespace PlayModeTestNodeRecorder
             }
         }
 
-        public NodeView (Vector2 position, Vector2 size)
-        {
-            rect = new Rect (position.x, position.y, size.x, size.y);
-        }
-
         public NodeView (Type type, Vector2 position, Vector2 size)
         {
             this.type = type;
