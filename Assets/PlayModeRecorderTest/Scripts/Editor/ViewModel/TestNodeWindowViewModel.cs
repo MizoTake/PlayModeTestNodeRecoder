@@ -9,7 +9,7 @@ namespace PlayModeRecorderTest
 {
     using Node = NodeView;
     using Line = LineView;
-    class TestNodeWindowViewModel
+    sealed class TestNodeWindowViewModel
     {
         private List<Node> nodeViews = new List<Node> ();
         private List<Line> lineViews = new List<Line> ();

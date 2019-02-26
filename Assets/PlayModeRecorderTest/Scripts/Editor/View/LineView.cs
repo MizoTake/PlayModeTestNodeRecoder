@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PlayModeRecorderTest
 {
-    partial class LineView
+    sealed partial class LineView
     {
 
         private Vector2 start;

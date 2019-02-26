@@ -7,7 +7,7 @@ using UnityEngine;
 namespace PlayModeRecorderTest
 {
     using ViewModel = MenuViewModel;
-    partial class MenuView : IViewable
+    sealed partial class MenuView : IViewable
     {
         private MenuViewModel viewModel;
         private GenericMenu drawingMenu = new GenericMenu ();

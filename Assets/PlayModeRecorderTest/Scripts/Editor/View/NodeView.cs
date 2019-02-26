@@ -6,7 +6,7 @@ using UnityEngine;
 namespace PlayModeRecorderTest
 {
     using Line = LineView;
-    partial class NodeView
+    sealed partial class NodeView
     {
         private Rect rect;
         private Line end;

@@ -10,7 +10,7 @@ namespace PlayModeRecorderTest
     using ViewModel = TestNodeWindowViewModel;
     using Menu = MenuView;
     using Node = NodeView;
-    partial class TestNodeWindowView
+    sealed partial class TestNodeWindowView
     {
         private ViewModel viewModel = new ViewModel ();
         private IViewable nodeMenu = new Menu (MenuType.Node);

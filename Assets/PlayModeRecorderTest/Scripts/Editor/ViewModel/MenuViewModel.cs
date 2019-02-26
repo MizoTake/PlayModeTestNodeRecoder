@@ -7,7 +7,7 @@ using UnityEngine;
 [assembly : InternalsVisibleTo ("Tests")]
 namespace PlayModeRecorderTest
 {
-    partial class MenuViewModel
+    sealed partial class MenuViewModel
     {
         private MenuType type;
         private string selectedMenuTitle;
