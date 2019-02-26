@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace PlayModeRecorderTest
+namespace PlayModeTestNodeRecorder
 {
     using Line = LineView;
-    sealed partial class NodeView
+    sealed partial class NodeView : IViewable
     {
         private Rect rect;
         private Line end;
@@ -39,6 +39,12 @@ namespace PlayModeRecorderTest
         {
             GUI.DragWindow ();
         }
+    }
+
+    partial class NodeView : ISelected
+    {
+        public string Selected =>
+            throw new System.NotImplementedException ();
     }
 
     partial class NodeView : IDrawable

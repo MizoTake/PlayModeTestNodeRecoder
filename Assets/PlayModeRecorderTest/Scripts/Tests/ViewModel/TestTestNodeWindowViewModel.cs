@@ -4,7 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace PlayModeRecorderTest.Tests
+namespace PlayModeTestNodeRecorder.Tests
 {
     public class TestTestNodeWindowViewModel
     {

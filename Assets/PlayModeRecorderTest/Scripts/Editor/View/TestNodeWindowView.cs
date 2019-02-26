@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using Assert = UnityEngine.Assertions.Assert;
 
-namespace PlayModeRecorderTest
+namespace PlayModeTestNodeRecorder
 {
     using ViewModel = TestNodeWindowViewModel;
     using Menu = MenuView;

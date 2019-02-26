@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace PlayModeRecorderTest
+namespace PlayModeTestNodeRecorder
 {
-    sealed partial class LineView
+    sealed partial class LineView : IViewable
     {
 
         private Vector2 start;
@@ -23,6 +23,12 @@ namespace PlayModeRecorderTest
         {
             this.end = end;
         }
+    }
+
+    partial class LineView : ISelected
+    {
+        public string Selected =>
+            throw new System.NotImplementedException ();
     }
 
     partial class LineView : IDrawable

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PlayModeRecorderTest
+namespace PlayModeTestNodeRecorder
 {
     public static class Vector2Extensions
     {

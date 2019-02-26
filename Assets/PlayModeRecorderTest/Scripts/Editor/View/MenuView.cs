@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace PlayModeRecorderTest
+namespace PlayModeTestNodeRecorder
 {
     using ViewModel = MenuViewModel;
     sealed partial class MenuView : IViewable
