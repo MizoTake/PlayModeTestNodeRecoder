@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -44,6 +45,8 @@ namespace PlayModeRecorderTest.Tests
             {
                 viewModel.CreateLine (node, Vector2.zero, node);
             }
+            Assert.AreEqual (viewModel.LineViews.Last (), viewModel.LastCreatedLine);
+            Assert.AreEqual (node.StartLine, viewModel.LastCreatedLine);
             Assert.AreEqual (viewModel.LineViews.Count, rand);
         }
 

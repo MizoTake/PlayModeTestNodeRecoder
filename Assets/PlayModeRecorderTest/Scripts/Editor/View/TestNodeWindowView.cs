@@ -23,7 +23,7 @@ namespace PlayModeRecorderTest
             var onNode = selectedNode != null;
             switch (current.button)
             {
-                case 0:
+                case 0: // 左クリック
                     viewModel.ConnectNode (current.mousePosition);
                     break;
                 case 1: // 右クリック
