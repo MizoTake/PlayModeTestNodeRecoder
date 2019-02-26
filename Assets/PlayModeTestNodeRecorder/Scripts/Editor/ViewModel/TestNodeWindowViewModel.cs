@@ -17,9 +17,15 @@ namespace PlayModeTestNodeRecorder
         public IReadOnlyList<Line> LineViews => lineViews;
         public Line LastCreatedLine { get; private set; }
 
-        public void CreateNode (Vector2 position)
+        public void CreateNode (NodeType type, Vector2 position)
         {
-            var node = new Node (position, Vector2.one * 100);
+            Node node = null;
+            switch (type)
+            {
+                case NodeType.Touch:
+                    node = new TouchNodeView (position, Vector2.one * 100);
+                    break;
+            }
             node.Id = nodeViews.Count;
             nodeViews.Add (node);
         }

@@ -50,7 +50,7 @@ namespace PlayModeTestNodeRecorder
                     viewModel.CreateLine (selectedNode, current.mousePosition, selectedNode);
                     break;
                 case SegueProcess.Make:
-                    viewModel.CreateNode (current.mousePosition);
+                    viewModel.CreateNode (NodeType.Touch, current.mousePosition);
                     break;
                 case SegueProcess.Delete:
                     break;

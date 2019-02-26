@@ -6,13 +6,12 @@ using UnityEngine;
 namespace PlayModeTestNodeRecorder
 {
     using Line = LineView;
-    sealed partial class NodeView : IViewable
+    using Type = NodeType;
+    partial class NodeView : IViewable
     {
         private Rect rect;
         private Line end;
-        public Vector2 Position => new Vector2 (rect.x, rect.height);
-        public Vector2 CenterHeightPositon => new Vector2 (rect.x, rect.y / 2.0f);
-        public Vector2 Size => new Vector2 (rect.width, rect.height);
+        private Type type;
         public Rect ViewableRect => rect;
         public int? Id { get; set; } = null;
         public Line StartLine { get; set; }
@@ -32,6 +31,12 @@ namespace PlayModeTestNodeRecorder
 
         public NodeView (Vector2 position, Vector2 size)
         {
+            rect = new Rect (position.x, position.y, size.x, size.y);
+        }
+
+        public NodeView (Type type, Vector2 position, Vector2 size)
+        {
+            this.type = type;
             rect = new Rect (position.x, position.y, size.x, size.y);
         }
 
