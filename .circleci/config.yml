@@ -1,5 +1,14 @@
-version: 2
+version: 2.1
+executors:
+  unity_executor:
+    docker:
+      - image: gableroux/unity3d:2018.3.3f1
+    environment:
+      BUILD_NAME: SampleBuild
+
 references:
+  gem_cache_key: &gem_cache_key
+    key: bundle-{{ checksum "Gemfile.lock" }}
   docker_image: &docker_image
     docker:
       - image: gableroux/unity3d:2018.3.3f1
@@ -22,9 +31,10 @@ references:
     command: |
       chmod -R 755 ./ci/zip.sh
       ./ci/zip.sh
+
 jobs:
   test_editmode:
-    <<: *docker_image
+    executor: unity_executor
     steps:
       # TODO: Add git to unity image so this is not required anymore
       # this will prevent following error on 'checkout' step:
@@ -48,7 +58,7 @@ jobs:
           path: '$(pwd)/$TEST_PLATFORM-results.xml'
           destination: '$TEST_PLATFORM-results.xml'
   test_playmode:
-    <<: *docker_image
+    executor: unity_executor
     steps:
       - run:
           name: setup apt-get install
@@ -69,7 +79,7 @@ jobs:
           path: '$(pwd)/$TEST_PLATFORM-results.xml'
           destination: '$TEST_PLATFORM-results.xml'
   build_StandaloneLinux64:
-    <<: *docker_image
+    executor: unity_executor
     steps:
       - run:
           name: setup apt-get install
@@ -81,7 +91,6 @@ jobs:
           name: build Linux64
           environment:
             BUILD_TARGET: StandaloneLinux64
-            BUILD_NAME: SampleBuild
           command: |
             chmod -R 755 ./ci/build.sh
             ./ci/build.sh
@@ -92,7 +101,7 @@ jobs:
       - store_artifacts:
           path: './Builds/'
   build_StandaloneWindows:
-    <<: *docker_image
+    executor: unity_executor
     steps:
       - run:
           name: setup apt-get install
@@ -105,7 +114,6 @@ jobs:
           name: build windwos
           environment:
             BUILD_TARGET: StandaloneWindows
-            BUILD_NAME: SampleBuild
           command: |
             chmod -R 755 ./ci/build.sh
             ./ci/build.sh
@@ -116,7 +124,7 @@ jobs:
       - store_artifacts:
           path: './Builds/'
   build_StandaloneOSX:
-    <<: *docker_image
+    executor: unity_executor
     steps:
       - run:
           name: setup apt-get install
@@ -129,7 +137,6 @@ jobs:
           name: build macOS
           environment:
             BUILD_TARGET: StandaloneOSX
-            BUILD_NAME: SampleBuild
           command: |
             chmod -R 755 ./ci/build.sh
             ./ci/build.sh
@@ -140,8 +147,10 @@ jobs:
       - store_artifacts:
           path: './Builds/'
   build_Android:
-    <<: *docker_image_android
+    executor: unity_executor
     steps:
+      - restore_cache:
+          <<: *gem_cache_key
       - run:
           name: setup apt-get install & android sdk, gradle
           command: |
@@ -161,7 +170,6 @@ jobs:
           environment:
             BUNDLE_IDENTIFIER: com.sample.circleci
             BUILD_TARGET: Android
-            BUILD_NAME: SampleBuild
             GRADLE_HOME: /opt/gradle/gradle-5.1
             ANDROID_HOME: /opt/android-sdk-linux
             JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64/jre/
@@ -179,6 +187,10 @@ jobs:
             $GRADLE_HOME/bin/gradle wrapper
             bundle install --path .bundle
             bundle exec fastlane beta
+      - save_cache:
+          paths:
+            - .bundle
+          <<: *gem_cache_key
       - run:
           <<: *remove_license_file
       - store_artifacts:
