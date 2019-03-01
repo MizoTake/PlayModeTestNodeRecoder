@@ -19,6 +19,11 @@ namespace PlayModeTestNodeRecorder
             this.width = width;
         }
 
+        public void UpdateStartPoint (Vector2 start)
+        {
+            this.start = start;
+        }
+
         public void UpdateEndPoint (Vector2 end)
         {
             this.end = end;

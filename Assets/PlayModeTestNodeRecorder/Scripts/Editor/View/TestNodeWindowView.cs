@@ -17,7 +17,7 @@ namespace PlayModeTestNodeRecorder
         private IViewable windowMenu = new Menu (MenuType.Window);
         private Node selectedNode = null;
 
-        private void Dispatch (Event current)
+        private void DownDispatch (Event current)
         {
             selectedNode = viewModel.ClickOnNode (current.mousePosition);
             var onNode = selectedNode != null;
@@ -35,6 +35,25 @@ namespace PlayModeTestNodeRecorder
                     {
                         windowMenu.Draw ();
                     }
+                    break;
+            }
+            current.Use ();
+        }
+
+        private void DragDispatch (Event current)
+        {
+            selectedNode = viewModel.ClickOnNode (current.mousePosition);
+            var onNode = selectedNode != null;
+            switch (current.button)
+            {
+                case 0: // 左クリック
+                    if (onNode)
+                    {
+                        // TODO: ノードを動かす処理
+                        selectedNode.Move (current.mousePosition);
+                    }
+                    break;
+                case 1: // 右クリック
                     break;
             }
             current.Use ();
@@ -71,9 +90,14 @@ namespace PlayModeTestNodeRecorder
         {
             var current = Event.current;
             SelectedAction (current);
-            if (current.type == EventType.MouseDown)
+            switch (current.type)
             {
-                Dispatch (current);
+                case EventType.MouseDown:
+                    DownDispatch (current);
+                    break;
+                case EventType.MouseDrag:
+                    DragDispatch (current);
+                    break;
             }
             if (viewModel.LastCreatedLine != null)
             {

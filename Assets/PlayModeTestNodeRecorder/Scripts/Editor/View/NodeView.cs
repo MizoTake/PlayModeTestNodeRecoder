@@ -24,7 +24,7 @@ namespace PlayModeTestNodeRecorder
             set
             {
                 var line = value;
-                line.UpdateEndPoint (new Vector2 (rect.x, rect.y + rect.height / 2f));
+                line.UpdateEndPoint (EndLinePoint ());
                 end = line;
             }
         }
@@ -33,6 +33,26 @@ namespace PlayModeTestNodeRecorder
         {
             this.type = type;
             rect = new Rect (position.x, position.y, size.x, size.y);
+        }
+
+        public void Move (Vector2 position)
+        {
+            // TODO: centerで良いのかはいずれ考える、処理としては仕様と言い張れるので一旦は良い
+            rect.center = position;
+            StartLine?.UpdateStartPoint (StartLinePoint ());
+            EndLine?.UpdateEndPoint (EndLinePoint ());
+        }
+
+        public Vector2 StartLinePoint ()
+        {
+            var lineX = rect.x + rect.width;
+            var lineY = rect.y + (rect.height / 2f);
+            return new Vector2 (lineX, lineY);
+        }
+
+        private Vector2 EndLinePoint ()
+        {
+            return new Vector2 (rect.x, rect.y + rect.height / 2f);
         }
 
         static void DrawNodeWindow (int id)
