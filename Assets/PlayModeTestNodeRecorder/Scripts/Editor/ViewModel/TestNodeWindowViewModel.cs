@@ -30,12 +30,12 @@ namespace PlayModeTestNodeRecorder
             nodeViews.Add (node);
         }
 
-        public void CreateLine (Node start, Vector2 mousePosition, Node selected)
+        public void CreateLine (Node start, Vector2 mousePosition)
         {
             var lineX = start.ViewableRect.x + start.ViewableRect.width;
             var lineY = start.ViewableRect.y + (start.ViewableRect.height / 2f);
             var line = new Line (new Vector2 (lineX, lineY), mousePosition);
-            selected.StartLine = line;
+            start.StartLine = line;
             LastCreatedLine = line;
             lineViews.Add (line);
         }

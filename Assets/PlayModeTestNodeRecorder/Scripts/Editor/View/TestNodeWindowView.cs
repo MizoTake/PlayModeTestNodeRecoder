@@ -47,7 +47,7 @@ namespace PlayModeTestNodeRecorder
             switch (selected)
             {
                 case SegueProcess.Transition:
-                    viewModel.CreateLine (selectedNode, current.mousePosition, selectedNode);
+                    viewModel.CreateLine (selectedNode, current.mousePosition);
                     break;
                 case SegueProcess.Make:
                     viewModel.CreateNode (NodeType.Touch, current.mousePosition);
