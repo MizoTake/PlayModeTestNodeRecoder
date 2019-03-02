@@ -42,15 +42,17 @@ namespace PlayModeTestNodeRecorder
 
         private void DragDispatch (Event current)
         {
-            selectedNode = viewModel.ClickOnNode (current.mousePosition);
             var onNode = selectedNode != null;
             switch (current.button)
             {
                 case 0: // 左クリック
                     if (onNode)
                     {
-                        // TODO: ノードを動かす処理
                         selectedNode.Move (current.mousePosition);
+                    }
+                    else
+                    {
+                        // TODO: 矩形選択処理
                     }
                     break;
                 case 1: // 右クリック
