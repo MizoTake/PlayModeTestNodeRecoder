@@ -74,6 +74,8 @@ namespace PlayModeTestNodeRecorder
                     viewModel.CreateNode (NodeType.Touch, current.mousePosition);
                     break;
                 case SegueProcess.Delete:
+                    // TODO: Nodeをベースに削除処理を書く、紐づくLineも消す
+                    
                     break;
             }
         }

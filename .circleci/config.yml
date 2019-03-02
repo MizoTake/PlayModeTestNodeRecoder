@@ -5,6 +5,17 @@ executors:
       - image: gableroux/unity3d:2018.3.3f1
     environment:
       BUILD_NAME: SampleBuild
+  unity_android_executor:
+    docker:
+      - image: gableroux/unity3d:2018.3.3f1-android
+    environment:
+      BUILD_NAME: SampleBuild
+      BUNDLE_IDENTIFIER: com.sample.circleci
+      BUILD_TARGET: Android
+      GRADLE_HOME: /opt/gradle/gradle-5.1
+      ANDROID_HOME: /opt/android-sdk-linux
+      JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64/jre/
+      BUILD_PATH: /project/Builds/$BUILD_TARGET/
 
 references:
   gem_cache_key: &gem_cache_key
@@ -147,7 +158,7 @@ jobs:
       - store_artifacts:
           path: './Builds/'
   build_Android:
-    executor: unity_executor
+    executor: unity_android_executor
     steps:
       - restore_cache:
           <<: *gem_cache_key
@@ -167,13 +178,6 @@ jobs:
           <<: *setup_unity_license_env_var
       - run:
           name: build android
-          environment:
-            BUNDLE_IDENTIFIER: com.sample.circleci
-            BUILD_TARGET: Android
-            GRADLE_HOME: /opt/gradle/gradle-5.1
-            ANDROID_HOME: /opt/android-sdk-linux
-            JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64/jre/
-            BUILD_PATH: /project/Builds/$BUILD_TARGET/
           command: |
             mkdir -p ./Builds ./Builds/$BUILD_TARGET ./Builds/$BUILD_TARGET/$BUILD_NAME
             rbenv install 2.3.0-dev
@@ -194,9 +198,6 @@ jobs:
       - run:
           <<: *remove_license_file
       - store_artifacts:
-          environment:
-            BUILD_TARGET: Android
-            BUILD_NAME: SampleBuild
           path: './Builds/$BUILD_TARGET/$BUILD_NAME/build/outputs/apk/debug/$BUILD_NAME-deubg.apk'
 workflows:
   version: 2
