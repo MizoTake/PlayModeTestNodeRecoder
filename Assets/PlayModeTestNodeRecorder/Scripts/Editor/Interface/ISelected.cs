@@ -6,6 +6,6 @@ namespace PlayModeTestNodeRecorder
 {
     public interface ISelected
     {
-        string Selected { get; }
+        bool Selected { get; }
     }
 }

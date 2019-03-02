@@ -10,27 +10,13 @@ namespace PlayModeTestNodeRecorder
     sealed partial class MenuViewModel
     {
         private MenuType type;
-        private string selectedMenuTitle;
+        public string SelectedMenuTitle { get; set; }
 
         public MenuViewModel (MenuType type)
         {
             this.type = type;
         }
-    }
 
-    partial class MenuViewModel : ISelected
-    {
-        public string Selected
-        {
-            get
-            {
-                return selectedMenuTitle;
-            }
-            set
-            {
-                selectedMenuTitle = value;
-            }
-        }
     }
 
     partial class MenuViewModel : IChoosable
@@ -53,7 +39,7 @@ namespace PlayModeTestNodeRecorder
         public void Choice (object select)
         {
             var selected = select.ToString ();
-            selectedMenuTitle = selected;
+            SelectedMenuTitle = selected;
         }
     }
 }

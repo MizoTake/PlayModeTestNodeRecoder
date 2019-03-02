@@ -40,7 +40,6 @@ namespace PlayModeTestNodeRecorder
 
         public void ConnectNode (Vector2 mousePos)
         {
-            if (LastCreatedLine == null) return;
             var selectedNode = ClickOnNode (mousePos);
             selectedNode.EndLine = LastCreatedLine;
             LastCreatedLine = null;

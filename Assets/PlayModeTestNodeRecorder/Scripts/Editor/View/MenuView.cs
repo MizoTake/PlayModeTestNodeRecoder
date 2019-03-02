@@ -10,8 +10,17 @@ namespace PlayModeTestNodeRecorder
     using ViewModel = MenuViewModel;
     sealed partial class MenuView : IViewable
     {
-        private MenuViewModel viewModel;
+        private ViewModel viewModel;
         private GenericMenu drawingMenu = new GenericMenu ();
+        public string ChoiceTitle
+        {
+            get
+            {
+                var selected = viewModel.SelectedMenuTitle;
+                viewModel.SelectedMenuTitle = "";
+                return selected;
+            }
+        }
 
         public MenuView (MenuType type)
         {
@@ -31,13 +40,11 @@ namespace PlayModeTestNodeRecorder
 
     partial class MenuView : ISelected
     {
-        public string Selected
+        public bool Selected
         {
             get
             {
-                var selected = viewModel.Selected;
-                viewModel.Selected = "";
-                return selected;
+                return viewModel.SelectedMenuTitle != "";
             }
         }
     }

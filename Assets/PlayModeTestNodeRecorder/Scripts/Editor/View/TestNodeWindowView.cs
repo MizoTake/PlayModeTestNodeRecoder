@@ -13,8 +13,8 @@ namespace PlayModeTestNodeRecorder
     sealed partial class TestNodeWindowView
     {
         private ViewModel viewModel = new ViewModel ();
-        private IViewable nodeMenu = new Menu (MenuType.Node);
-        private IViewable windowMenu = new Menu (MenuType.Window);
+        private Menu nodeMenu = new Menu (MenuType.Node);
+        private Menu windowMenu = new Menu (MenuType.Window);
         private Node selectedNode = null;
 
         private void DownDispatch (Event current)
@@ -24,7 +24,15 @@ namespace PlayModeTestNodeRecorder
             switch (current.button)
             {
                 case 0: // 左クリック
-                    viewModel.ConnectNode (current.mousePosition);
+                    if (viewModel.LastCreatedLine != null)
+                    {
+                        // Lineを出してつなぐ状態
+                        viewModel.ConnectNode (current.mousePosition);
+                    }
+                    else
+                    {
+                        // TODO: Nodeを選択する状態(Nodeにout colorを追加する処理)
+                    }
                     break;
                 case 1: // 右クリック
                     if (onNode)
@@ -64,7 +72,7 @@ namespace PlayModeTestNodeRecorder
         private void SelectedAction (Event current)
         {
             var onNode = selectedNode != null;
-            var selected = onNode ? nodeMenu.Selected : windowMenu.Selected;
+            var selected = onNode ? nodeMenu.ChoiceTitle : windowMenu.ChoiceTitle;
             switch (selected)
             {
                 case SegueProcess.Transition:
@@ -75,7 +83,7 @@ namespace PlayModeTestNodeRecorder
                     break;
                 case SegueProcess.Delete:
                     // TODO: Nodeをベースに削除処理を書く、紐づくLineも消す
-                    
+
                     break;
             }
         }

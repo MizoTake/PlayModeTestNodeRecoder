@@ -32,7 +32,7 @@ namespace PlayModeTestNodeRecorder
 
     partial class LineView : ISelected
     {
-        public string Selected =>
+        public bool Selected =>
             throw new System.NotImplementedException ();
     }
 

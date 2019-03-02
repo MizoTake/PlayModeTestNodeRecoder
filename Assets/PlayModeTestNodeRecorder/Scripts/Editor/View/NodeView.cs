@@ -63,7 +63,7 @@ namespace PlayModeTestNodeRecorder
 
     partial class NodeView : ISelected
     {
-        public string Selected =>
+        public bool Selected =>
             throw new System.NotImplementedException ();
     }
 
