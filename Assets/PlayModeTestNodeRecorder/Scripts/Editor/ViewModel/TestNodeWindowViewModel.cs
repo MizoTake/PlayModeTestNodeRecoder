@@ -33,6 +33,12 @@ namespace PlayModeTestNodeRecorder
         public void CreateLine (Node start, Vector2 mousePosition)
         {
             var line = new Line (start.StartLinePoint (), mousePosition);
+            if (start.StartLine != null)
+            {
+                // Lineが被らないようにする
+                lineViews.Remove (start.StartLine);
+                start.StartLine = null;
+            }
             start.StartLine = line;
             LastCreatedLine = line;
             lineViews.Add (line);
@@ -41,7 +47,17 @@ namespace PlayModeTestNodeRecorder
         public void ConnectNode (Vector2 mousePos)
         {
             var selectedNode = ClickOnNode (mousePos);
-            selectedNode.EndLine = LastCreatedLine;
+            // Nodeを選ばなければ消す
+            if (selectedNode == null)
+            {
+                lineViews.Remove (LastCreatedLine);
+            }
+            else
+            {
+                // 同じNodeに紐づけない
+                if (selectedNode.StartLine == LastCreatedLine) return;
+                selectedNode.EndLine = LastCreatedLine;
+            }
             LastCreatedLine = null;
         }
 

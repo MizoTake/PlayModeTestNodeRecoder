@@ -32,6 +32,7 @@ namespace PlayModeTestNodeRecorder
                     else
                     {
                         // TODO: Nodeを選択する状態(Nodeにout colorを追加する処理)
+                        // TODO: Rect描画で選択範囲を表示
                     }
                     break;
                 case 1: // 右クリック
@@ -56,6 +57,7 @@ namespace PlayModeTestNodeRecorder
                 case 0: // 左クリック
                     if (onNode)
                     {
+                        // TODO: 複数選択時には複数移動が必要
                         selectedNode.Move (current.mousePosition);
                     }
                     else
