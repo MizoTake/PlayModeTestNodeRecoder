@@ -55,6 +55,22 @@ namespace PlayModeTestNodeRecorder.Tests
         }
 
         [Test]
+        public void CreateLineButAlreadyCreatedLine ()
+        {
+            var viewModel = new ViewModel ();
+            viewModel.CreateNode (NodeType.Touch, Vector2.zero);
+            viewModel.CreateNode (NodeType.Touch, Vector2.one * 200f);
+            var node = viewModel.NodeViews[0];
+            viewModel.CreateLine (node, Vector2.zero);
+            var lastLine = viewModel.LineViews[0];
+            viewModel.ConnectNode (Vector2.one * 200f);
+            var targetLine = node.StartLine;
+
+            viewModel.CreateLine (node, Vector2.zero);
+            Assert.IsTrue (viewModel.LineViews.Contains (targetLine) == false);
+        }
+
+        [Test]
         public void ConnectNodeConnection ()
         {
             var viewModel = new ViewModel ();

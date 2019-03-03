@@ -87,6 +87,11 @@ namespace PlayModeTestNodeRecorder
                     break;
             }
         }
+
+        private void EventUI ()
+        {
+
+        }
     }
 
     partial class TestNodeWindowView : EditorWindow
