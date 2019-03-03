@@ -11,6 +11,7 @@ namespace PlayModeTestNodeRecorder
     using Line = LineView;
     sealed class TestNodeWindowViewModel
     {
+        private Node lastCreatedNodeOfLine = null;
         private List<Node> nodeViews = new List<Node> ();
         private List<Line> lineViews = new List<Line> ();
         public IReadOnlyList<Node> NodeViews => nodeViews;
@@ -39,6 +40,7 @@ namespace PlayModeTestNodeRecorder
                 lineViews.Remove (start.StartLine);
                 start.StartLine = null;
             }
+            lastCreatedNodeOfLine = start;
             start.StartLine = line;
             LastCreatedLine = line;
             lineViews.Add (line);
@@ -50,12 +52,17 @@ namespace PlayModeTestNodeRecorder
             // Nodeを選ばなければ消す
             if (selectedNode == null)
             {
+                lastCreatedNodeOfLine.StartLine = null;
                 lineViews.Remove (LastCreatedLine);
             }
             else
             {
                 // 同じNodeに紐づけない
-                if (selectedNode.StartLine == LastCreatedLine) return;
+                if (selectedNode.StartLine == LastCreatedLine)
+                {
+                    selectedNode.StartLine = null;
+                    return;
+                }
                 selectedNode.EndLine = LastCreatedLine;
             }
             LastCreatedLine = null;

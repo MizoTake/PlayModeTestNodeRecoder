@@ -32,7 +32,6 @@ namespace PlayModeTestNodeRecorder
                     else
                     {
                         // TODO: Nodeを選択する状態(Nodeにout colorを追加する処理)
-                        // TODO: Rect描画で選択範囲を表示
                     }
                     break;
                 case 1: // 右クリック
@@ -85,7 +84,6 @@ namespace PlayModeTestNodeRecorder
                     break;
                 case SegueProcess.Delete:
                     // TODO: Nodeをベースに削除処理を書く、紐づくLineも消す
-
                     break;
             }
         }
