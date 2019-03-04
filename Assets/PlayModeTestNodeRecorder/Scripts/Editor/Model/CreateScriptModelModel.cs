@@ -8,13 +8,13 @@ using UnityEngine;
 
 namespace PlayModeTestNodeRecorder
 {
-    class ScriptCreateModel
+    class CreateScriptModel
     {
         public void CreateScript (string className)
         {
             var builder = new StringBuilder ();
 
-            builder = WriteClassElement (builder);
+            builder = WriteClassElement (builder, className);
 
             var text = builder.ToString ().Replace (",}", "}");
             var assetPath = Application.dataPath + className + ".cs";
@@ -29,10 +29,10 @@ namespace PlayModeTestNodeRecorder
             AssetDatabase.Refresh (ImportAssetOptions.ImportRecursive);
         }
 
-        private StringBuilder WriteClassElement (StringBuilder builder)
+        private StringBuilder WriteClassElement (StringBuilder builder, string className)
         {
 
-            builder.AppendLine ("public class TagName");
+            builder.AppendLine ("public class " + className);
             builder.AppendLine ("{");
 
             builder.AppendLine ("}");

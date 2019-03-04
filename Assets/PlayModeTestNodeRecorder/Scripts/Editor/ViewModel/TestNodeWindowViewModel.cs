@@ -9,8 +9,10 @@ namespace PlayModeTestNodeRecorder
 {
     using Node = NodeView;
     using Line = LineView;
+    using CreateScript = CreateScriptModel;
     sealed class TestNodeWindowViewModel
     {
+        private CreateScript craeteScript = new CreateScript ();
         private Node lastCreatedNodeOfLine = null;
         private List<Node> nodeViews = new List<Node> ();
         private List<Line> lineViews = new List<Line> ();
