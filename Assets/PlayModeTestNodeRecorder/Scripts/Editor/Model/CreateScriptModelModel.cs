@@ -32,7 +32,7 @@ namespace PlayModeTestNodeRecorder
         private StringBuilder WriteClassElement (StringBuilder builder, string className)
         {
 
-            builder.AppendLine ("public class " + className);
+            builder.AppendLine ("public class " + className + " : NodeTestScript");
             builder.AppendLine ("{");
 
             builder.AppendLine ("}");
