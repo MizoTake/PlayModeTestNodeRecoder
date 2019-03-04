@@ -12,6 +12,7 @@ namespace PlayModeTestNodeRecorder
     using Node = NodeView;
     sealed partial class TestNodeWindowView
     {
+        private string fieldString = "";
         private ViewModel viewModel = new ViewModel ();
         private Menu nodeMenu = new Menu (MenuType.Node);
         private Menu windowMenu = new Menu (MenuType.Window);
@@ -88,9 +89,14 @@ namespace PlayModeTestNodeRecorder
             }
         }
 
-        private void EventUI ()
+        private void EventUIDisplay ()
         {
-
+            var option = new GUILayoutOption[] { GUILayout.MaxWidth (position.width / 2f) };
+            using (new EditorGUILayout.HorizontalScope ())
+            {
+                fieldString = GUILayout.TextField (fieldString, option);
+                GUILayout.Button ("Save");
+            }
         }
     }
 
@@ -105,6 +111,7 @@ namespace PlayModeTestNodeRecorder
 
         void OnGUI ()
         {
+            EventUIDisplay ();
             var current = Event.current;
             SelectedAction (current);
             switch (current.type)
