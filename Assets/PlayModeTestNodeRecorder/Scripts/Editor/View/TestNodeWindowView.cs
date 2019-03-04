@@ -96,6 +96,7 @@ namespace PlayModeTestNodeRecorder
             {
                 fieldString = GUILayout.TextField (fieldString, option);
                 GUILayout.Button ("Save");
+                GUILayout.Button ("Load");
             }
         }
     }
@@ -112,6 +113,7 @@ namespace PlayModeTestNodeRecorder
         void OnGUI ()
         {
             EventUIDisplay ();
+
             var current = Event.current;
             SelectedAction (current);
             switch (current.type)
