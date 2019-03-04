@@ -95,7 +95,11 @@ namespace PlayModeTestNodeRecorder
             using (new EditorGUILayout.HorizontalScope ())
             {
                 fieldString = GUILayout.TextField (fieldString, option);
-                GUILayout.Button ("Save");
+                if (GUILayout.Button ("Save"))
+                {
+                    viewModel.SavingScriptFile (fieldString);
+                    fieldString = "";
+                }
                 GUILayout.Button ("Load");
             }
         }

@@ -10,14 +10,14 @@ namespace PlayModeTestNodeRecorder
 {
     class CreateScriptModel
     {
-        public void CreateScript (string className)
+        public void SavingFile (string className)
         {
             var builder = new StringBuilder ();
 
             builder = WriteClassElement (builder, className);
 
             var text = builder.ToString ().Replace (",}", "}");
-            var assetPath = Application.dataPath + className + ".cs";
+            var assetPath = Application.dataPath + "/" + className + ".cs";
 
             Directory.CreateDirectory (Application.dataPath);
 

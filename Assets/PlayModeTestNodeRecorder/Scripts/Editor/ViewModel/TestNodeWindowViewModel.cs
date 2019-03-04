@@ -83,5 +83,10 @@ namespace PlayModeTestNodeRecorder
             }
             return result;
         }
+
+        public void SavingScriptFile (string fieldText)
+        {
+            craeteScript.SavingFile (fieldText);
+        }
     }
 }
