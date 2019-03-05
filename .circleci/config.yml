@@ -204,4 +204,4 @@ workflows:
   test:
     jobs:
       - test_editmode
-      # - test_playmode
+      - test_playmode
