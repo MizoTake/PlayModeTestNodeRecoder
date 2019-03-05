@@ -50,8 +50,8 @@ namespace PlayModeTestNodeRecorder.Tests
             viewModel.ConnectNode (Vector2.one * 200f);
             Assert.AreEqual (null, viewModel.LastCreatedLine);
             Assert.AreEqual (nodeOne.EndLine, viewModel.LastCreatedLine);
-            Assert.AreEqual (nodeOne.EndLine, nodeTwo.StartLine);
-            Assert.AreNotEqual (nodeOne.StartLine, nodeOne.EndLine);
+            Assert.AreEqual (nodeOne.EndLine, nodeTwo.BeginLine);
+            Assert.AreNotEqual (nodeOne.BeginLine, nodeOne.EndLine);
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace PlayModeTestNodeRecorder.Tests
             viewModel.CreateLine (node, Vector2.zero);
             var lastLine = viewModel.LineViews[0];
             viewModel.ConnectNode (Vector2.one * 200f);
-            var targetLine = node.StartLine;
+            var targetLine = node.BeginLine;
 
             viewModel.CreateLine (node, Vector2.zero);
             Assert.IsTrue (viewModel.LineViews.Contains (targetLine) == false);
@@ -80,7 +80,7 @@ namespace PlayModeTestNodeRecorder.Tests
             viewModel.CreateLine (node, Vector2.zero);
             var lastLine = viewModel.LineViews[0];
             viewModel.ConnectNode (Vector2.one * 200f);
-            Assert.AreEqual (node.StartLine, lastLine);
+            Assert.AreEqual (node.BeginLine, lastLine);
             Assert.AreEqual (viewModel.LastCreatedLine, null);
         }
 
@@ -94,7 +94,7 @@ namespace PlayModeTestNodeRecorder.Tests
             viewModel.CreateLine (node, Vector2.zero);
             var lastLine = viewModel.LineViews[0];
             viewModel.ConnectNode (Vector2.one * 100f);
-            Assert.AreEqual (node.StartLine, null);
+            Assert.AreEqual (node.BeginLine, null);
             Assert.AreEqual (viewModel.LastCreatedLine, null);
         }
 

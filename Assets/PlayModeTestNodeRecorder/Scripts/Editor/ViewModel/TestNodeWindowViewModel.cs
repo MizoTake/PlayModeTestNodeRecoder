@@ -33,17 +33,17 @@ namespace PlayModeTestNodeRecorder
             nodeViews.Add (node);
         }
 
-        public void CreateLine (Node start, Vector2 mousePosition)
+        public void CreateLine (Node begin, Vector2 mousePosition)
         {
-            var line = new Line (start.StartLinePoint (), mousePosition);
-            if (start.StartLine != null)
+            var line = new Line (begin.BeginLinePoint (), mousePosition);
+            if (begin.BeginLine != null)
             {
                 // Lineが被らないようにする
-                lineViews.Remove (start.StartLine);
-                start.StartLine = null;
+                lineViews.Remove (begin.BeginLine);
+                begin.BeginLine = null;
             }
-            lastCreatedNodeOfLine = start;
-            start.StartLine = line;
+            lastCreatedNodeOfLine = begin;
+            begin.BeginLine = line;
             LastCreatedLine = line;
             lineViews.Add (line);
         }
@@ -54,15 +54,15 @@ namespace PlayModeTestNodeRecorder
             // Nodeを選ばなければ消す
             if (selectedNode == null)
             {
-                lastCreatedNodeOfLine.StartLine = null;
+                lastCreatedNodeOfLine.BeginLine = null;
                 lineViews.Remove (LastCreatedLine);
             }
             else
             {
                 // 同じNodeに紐づけない
-                if (selectedNode.StartLine == LastCreatedLine)
+                if (selectedNode.BeginLine == LastCreatedLine)
                 {
-                    selectedNode.StartLine = null;
+                    selectedNode.BeginLine = null;
                     return;
                 }
                 selectedNode.EndLine = LastCreatedLine;

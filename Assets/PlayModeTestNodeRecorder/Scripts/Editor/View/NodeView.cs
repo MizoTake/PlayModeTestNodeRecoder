@@ -14,7 +14,7 @@ namespace PlayModeTestNodeRecorder
         private Type type;
         public Rect ViewableRect => rect;
         public int? Id { get; set; } = null;
-        public Line StartLine { get; set; }
+        public Line BeginLine { get; set; }
         public Line EndLine
         {
             get
@@ -39,11 +39,11 @@ namespace PlayModeTestNodeRecorder
         {
             // TODO: centerで良いのかはいずれ考える、処理としては仕様と言い張れるので一旦は良い
             rect.center = position;
-            StartLine?.UpdateStartPoint (StartLinePoint ());
+            BeginLine?.UpdateBeginPoint (BeginLinePoint ());
             EndLine?.UpdateEndPoint (EndLinePoint ());
         }
 
-        public Vector2 StartLinePoint ()
+        public Vector2 BeginLinePoint ()
         {
             var lineX = rect.x + rect.width;
             var lineY = rect.y + (rect.height / 2f);

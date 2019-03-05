@@ -8,20 +8,20 @@ namespace PlayModeTestNodeRecorder
     sealed partial class LineView : IViewable
     {
 
-        private Vector2 start;
+        private Vector2 begin;
         private Vector2 end;
         private float width;
 
-        public LineView (Vector2 start, Vector2 end, float width = 3f)
+        public LineView (Vector2 begin, Vector2 end, float width = 3f)
         {
-            this.start = start;
+            this.begin = begin;
             this.end = end;
             this.width = width;
         }
 
-        public void UpdateStartPoint (Vector2 start)
+        public void UpdateBeginPoint (Vector2 begin)
         {
-            this.start = start;
+            this.begin = begin;
         }
 
         public void UpdateEndPoint (Vector2 end)
@@ -40,11 +40,11 @@ namespace PlayModeTestNodeRecorder
     {
         public void Draw ()
         {
-            var startPos = start;
+            var beginPos = begin;
             var endPos = end;
-            var startTan = startPos.ToVector3 () + new Vector3 (100f, 0f, 0f);
+            var beginTan = beginPos.ToVector3 () + new Vector3 (100f, 0f, 0f);
             var endTan = endPos.ToVector3 () + new Vector3 (-100f, 0f, 0f);
-            Handles.DrawBezier (startPos, endPos, startTan, endTan, Color.gray, null, width);
+            Handles.DrawBezier (beginPos, endPos, beginTan, endTan, Color.gray, null, width);
         }
     }
 }
