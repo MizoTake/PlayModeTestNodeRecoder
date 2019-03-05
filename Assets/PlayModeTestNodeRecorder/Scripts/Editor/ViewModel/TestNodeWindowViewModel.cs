@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using UnityEditor;
 using UnityEngine;
 
 [assembly : InternalsVisibleTo ("Tests.EditMode")]
@@ -13,12 +14,24 @@ namespace PlayModeTestNodeRecorder
     sealed class TestNodeWindowViewModel
     {
         private CreateScript craeteScript = new CreateScript ();
+        private Node chaceBeforeNode = null;
+        private EndNodeView endNode;
         private Node lastCreatedNodeOfLine = null;
         private List<Node> nodeViews = new List<Node> ();
         private List<Line> lineViews = new List<Line> ();
         public IReadOnlyList<Node> NodeViews => nodeViews;
         public IReadOnlyList<Line> LineViews => lineViews;
         public Line LastCreatedLine { get; private set; }
+
+        public Config LoadConfig ()
+        {
+            var config = Resources.Load<Config> ("Config");
+            if (config == null)
+            {
+                config = Config.Create ();
+            }
+            return config;
+        }
 
         public void CreateNode (NodeType type, Vector2 position)
         {
@@ -27,6 +40,10 @@ namespace PlayModeTestNodeRecorder
             {
                 case NodeType.Touch:
                     node = new TouchNodeView (position, Vector2.one * 100);
+                    break;
+                case NodeType.End:
+                    endNode = new EndNodeView (position, Vector2.one * 100);
+                    node = endNode;
                     break;
             }
             node.Id = nodeViews.Count;
@@ -44,6 +61,7 @@ namespace PlayModeTestNodeRecorder
             }
             lastCreatedNodeOfLine = begin;
             begin.BeginLine = line;
+            chaceBeforeNode = begin;
             LastCreatedLine = line;
             lineViews.Add (line);
         }
@@ -65,6 +83,8 @@ namespace PlayModeTestNodeRecorder
                     selectedNode.BeginLine = null;
                     return;
                 }
+                selectedNode.BeforeNode = chaceBeforeNode;
+                chaceBeforeNode = null;
                 selectedNode.EndLine = LastCreatedLine;
             }
             LastCreatedLine = null;
@@ -86,7 +106,14 @@ namespace PlayModeTestNodeRecorder
 
         public void SavingScriptFile (string fieldText)
         {
-            craeteScript.SavingFile (fieldText);
+            var nodeList = new List<Node> ();
+            var next = endNode.BeforeNode;
+            while (next != null)
+            {
+                nodeList.Add (next);
+                next = next.BeforeNode;
+            }
+            craeteScript.SavingFile (fieldText, nodeList.ToArray ());
         }
     }
 }

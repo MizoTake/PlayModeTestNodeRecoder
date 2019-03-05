@@ -10,11 +10,11 @@ namespace PlayModeTestNodeRecorder
 {
     class CreateScriptModel
     {
-        public void SavingFile (string className)
+        public void SavingFile (string className, NodeView[] nodeArray)
         {
             var builder = new StringBuilder ();
 
-            builder = WriteClassElement (builder, className);
+            builder = WriteClassElement (builder, className, nodeArray);
 
             var text = builder.ToString ().Replace (",}", "}");
             var assetPath = Application.dataPath + "/" + className + ".cs";
@@ -29,12 +29,26 @@ namespace PlayModeTestNodeRecorder
             AssetDatabase.Refresh (ImportAssetOptions.ImportRecursive);
         }
 
-        private StringBuilder WriteClassElement (StringBuilder builder, string className)
+        private StringBuilder WriteClassElement (StringBuilder builder, string className, NodeView[] nodeArray)
         {
-
+            builder.AppendLine ("using PlayModeTestNodeRecorder;");
+            builder.AppendLine ("using UnityEngine;");
+            builder.AppendLine ("using NUnit.Framework;");
+            builder.AppendLine ("\t");
             builder.AppendLine ("public class " + className + " : NodeTestScript");
             builder.AppendLine ("{");
-
+            {
+                builder.Append ("\t").AppendLine ("[Test]");
+                builder.Append ("\t").AppendLine ("public void TestMain()");
+                builder.Append ("\t").AppendLine ("{");
+                {
+                    foreach (var node in nodeArray)
+                    {
+                        builder.Append ("\t").Append ("\t").AppendLine (node.Type.ToString () + "(Vector2.zero);");
+                    }
+                }
+                builder.Append ("\t").AppendLine ("}");
+            }
             builder.AppendLine ("}");
             return builder;
         }

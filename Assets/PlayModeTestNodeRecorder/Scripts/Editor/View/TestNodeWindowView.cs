@@ -17,6 +17,13 @@ namespace PlayModeTestNodeRecorder
         private Menu nodeMenu = new Menu (MenuType.Node);
         private Menu windowMenu = new Menu (MenuType.Window);
         private Node selectedNode = null;
+        private Config config;
+
+        public void Init ()
+        {
+            config = viewModel.LoadConfig ();
+            viewModel.CreateNode (NodeType.End, new Vector2 (position.width / 2f, position.height / 2f));
+        }
 
         private void DownDispatch (Event current)
         {
@@ -112,6 +119,7 @@ namespace PlayModeTestNodeRecorder
         {
             var nodeEditorWindow = CreateInstance<TestNodeWindowView> ();
             nodeEditorWindow.Show ();
+            nodeEditorWindow.Init ();
         }
 
         void OnGUI ()

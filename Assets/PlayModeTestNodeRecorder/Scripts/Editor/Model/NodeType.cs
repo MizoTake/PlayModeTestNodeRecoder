@@ -9,6 +9,7 @@ namespace PlayModeTestNodeRecorder
         Touch,
         Swipe,
         Drag,
-        Delay
+        Delay,
+        End
     }
 }

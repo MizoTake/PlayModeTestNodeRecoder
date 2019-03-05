@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using Assert = UnityEngine.Assertions.Assert;
 
-namespace PlayModeTestNodeRecorder.Tests
+namespace PlayModeTestNodeRecorder.Tests.EditMode
 {
     public class TestMenuViewModel
     {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PlayModeTestNodeRecorder.Tests.Base
+namespace PlayModeTestNodeRecorder
 {
-    abstract class NodeTestScript
+    public abstract class NodeTestScript
     {
         protected void Touch (Vector2 position) { }
     }

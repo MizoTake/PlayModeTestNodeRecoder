@@ -11,9 +11,9 @@ namespace PlayModeTestNodeRecorder
     {
         private Rect rect;
         private Line end;
-        private Type type;
-        public Rect ViewableRect => rect;
         public int? Id { get; set; } = null;
+        public Type Type { get; private set; }
+        public Rect ViewableRect => rect;
         public Line BeginLine { get; set; }
         public Line EndLine
         {
@@ -28,10 +28,11 @@ namespace PlayModeTestNodeRecorder
                 end = line;
             }
         }
+        public NodeView BeforeNode { get; set; }
 
         public NodeView (Type type, Vector2 position, Vector2 size)
         {
-            this.type = type;
+            this.Type = type;
             rect = new Rect (position.x, position.y, size.x, size.y);
         }
 
@@ -71,7 +72,7 @@ namespace PlayModeTestNodeRecorder
     {
         public void Draw ()
         {
-            GUI.Window (Id.Value, rect, NodeView.DrawNodeWindow, type.ToString ());
+            GUI.Window (Id.Value, rect, NodeView.DrawNodeWindow, Type.ToString ());
         }
     }
 }
