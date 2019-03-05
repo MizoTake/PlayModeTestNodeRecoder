@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-[assembly : InternalsVisibleTo ("Tests")]
+[assembly : InternalsVisibleTo ("Tests.EditMode")]
 namespace PlayModeTestNodeRecorder
 {
     using Node = NodeView;
