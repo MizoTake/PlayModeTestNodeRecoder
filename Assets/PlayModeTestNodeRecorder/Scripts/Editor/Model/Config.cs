@@ -12,7 +12,6 @@ namespace PlayModeTestNodeRecorder
         public string SavingPath;
 
 #if UNITY_EDITOR
-        [MenuItem ("ScriptableObjectTest/Create")]
         public static Config Create ()
         {
             var asset = CreateInstance<Config> ();

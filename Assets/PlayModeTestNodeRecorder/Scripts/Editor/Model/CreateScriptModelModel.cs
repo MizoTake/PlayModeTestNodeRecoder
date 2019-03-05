@@ -10,21 +10,22 @@ namespace PlayModeTestNodeRecorder
 {
     class CreateScriptModel
     {
-        public void SavingFile (string className, NodeView[] nodeArray)
+        public void SavingFile (string path, string className, NodeView[] nodeArray)
         {
             var builder = new StringBuilder ();
 
             builder = WriteClassElement (builder, className, nodeArray);
 
-            var text = builder.ToString ().Replace (",}", "}");
-            var assetPath = Application.dataPath + "/" + className + ".cs";
+            var text = builder.ToString ();
+            var assetPath = Application.dataPath + "/" + path + "/" + className + ".cs";
 
             Directory.CreateDirectory (Application.dataPath);
 
             if (AssetDatabase.LoadAssetAtPath (assetPath.Replace ("/Editor/..", ""), typeof (UnityEngine.Object)) != null && EditorPrefs.GetInt (this.GetType ().Name, 0) == text.GetHashCode ())
                 return;
 
-            System.IO.File.WriteAllText (assetPath, text);
+            File.Copy (Application.dataPath + "/PlayModeTestNodeRecorder/StreamingAssets/asmdefTemplete.txt", Application.dataPath + "/" + path + "/Tests.asmdef", true);
+            File.WriteAllText (assetPath, text);
             EditorPrefs.SetInt (this.GetType ().Name, text.GetHashCode ());
             AssetDatabase.Refresh (ImportAssetOptions.ImportRecursive);
         }

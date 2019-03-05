@@ -105,7 +105,6 @@ namespace PlayModeTestNodeRecorder
                 if (GUILayout.Button ("Save"))
                 {
                     viewModel.SavingScriptFile (fieldString);
-                    fieldString = "";
                 }
                 GUILayout.Button ("Load");
             }

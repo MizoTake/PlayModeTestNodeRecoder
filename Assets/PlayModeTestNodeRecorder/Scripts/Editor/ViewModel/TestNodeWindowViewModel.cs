@@ -13,6 +13,7 @@ namespace PlayModeTestNodeRecorder
     using CreateScript = CreateScriptModel;
     sealed class TestNodeWindowViewModel
     {
+        private Config config;
         private CreateScript craeteScript = new CreateScript ();
         private Node chaceBeforeNode = null;
         private EndNodeView endNode;
@@ -30,6 +31,7 @@ namespace PlayModeTestNodeRecorder
             {
                 config = Config.Create ();
             }
+            this.config = config;
             return config;
         }
 
@@ -113,7 +115,7 @@ namespace PlayModeTestNodeRecorder
                 nodeList.Add (next);
                 next = next.BeforeNode;
             }
-            craeteScript.SavingFile (fieldText, nodeList.ToArray ());
+            craeteScript.SavingFile (config.SavingPath, fieldText, nodeList.ToArray ());
         }
     }
 }
