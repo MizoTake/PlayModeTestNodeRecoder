@@ -58,7 +58,7 @@ namespace PlayModeTestNodeRecorder
         {
             if (node is TouchNodeView touch)
             {
-                return node.Type.ToString () + "(new Vector2(" + touch.ScreenPoint.x + "," + touch.ScreenPoint.y + "));";
+                return node.Type.ToString () + "(new Vector2(" + touch.ScreenPoint.x + "f ," + touch.ScreenPoint.y + "f));";
             }
             return "";
         }

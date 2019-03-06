@@ -14,6 +14,11 @@ namespace PlayModeTestNodeRecorder
 
         }
 
+        public TouchNodeView (Vector2 position, Vector2 size, Vector2 touchPosition) : base (NodeType.Touch, position, size)
+        {
+            ScreenPoint = touchPosition;
+        }
+
         protected override void DrawNodeWindow (int id)
         {
             try

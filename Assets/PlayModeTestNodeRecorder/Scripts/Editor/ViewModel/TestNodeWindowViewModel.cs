@@ -16,7 +16,7 @@ namespace PlayModeTestNodeRecorder
         private Config config;
         private CreateScript craeteScript = new CreateScript ();
         private Node chaceBeforeNode = null;
-        private EndNodeView endNode;
+        private BeginNodeView beginNode;
         private Node lastCreatedNodeOfLine = null;
         private List<Node> nodeViews = new List<Node> ();
         private List<Line> lineViews = new List<Line> ();
@@ -35,17 +35,18 @@ namespace PlayModeTestNodeRecorder
             return config;
         }
 
+        // TODO: Type別で引数を作る？
         public void CreateNode (NodeType type, Vector2 position)
         {
             Node node = null;
             switch (type)
             {
-                case NodeType.Touch:
-                    node = new TouchNodeView (position, Vector2.one * 130);
+                case NodeType.Begin:
+                    beginNode = (BeginNodeView) type.ToNode (position);
+                    node = beginNode;
                     break;
-                case NodeType.End:
-                    endNode = new EndNodeView (position, Vector2.one * 100);
-                    node = endNode;
+                default:
+                    node = type.ToNode (position);
                     break;
             }
             node.Id = nodeViews.Count;
@@ -85,7 +86,7 @@ namespace PlayModeTestNodeRecorder
                     selectedNode.BeginLine = null;
                     return;
                 }
-                selectedNode.BeforeNode = chaceBeforeNode;
+                chaceBeforeNode.NextNode = selectedNode;
                 chaceBeforeNode = null;
                 selectedNode.EndLine = LastCreatedLine;
             }
@@ -110,11 +111,11 @@ namespace PlayModeTestNodeRecorder
         {
             if (fieldText == "") return;
             var nodeList = new List<Node> ();
-            var next = endNode.BeforeNode;
+            var next = beginNode.NextNode;
             while (next != null)
             {
                 nodeList.Add (next);
-                next = next.BeforeNode;
+                next = next.NextNode;
             }
             craeteScript.SavingFile (config.SavingPath, fieldText, nodeList.ToArray ());
         }

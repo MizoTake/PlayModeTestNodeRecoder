@@ -28,7 +28,7 @@ namespace PlayModeTestNodeRecorder
                 end = line;
             }
         }
-        public NodeView BeforeNode { get; set; }
+        public NodeView NextNode { get; set; }
 
         public NodeView (Type type, Vector2 position, Vector2 size)
         {

@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace PlayModeTestNodeRecorder
 {
-    class EndNodeView : NodeView
+    class BeginNodeView : NodeView
     {
-        public EndNodeView (Vector2 position, Vector2 size) : base (NodeType.End, position, size)
+        public BeginNodeView (Vector2 position, Vector2 size) : base (NodeType.Begin, position, size)
         {
 
         }

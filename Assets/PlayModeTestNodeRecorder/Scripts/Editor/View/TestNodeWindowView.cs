@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Assert = UnityEngine.Assertions.Assert;
 
 namespace PlayModeTestNodeRecorder
@@ -12,6 +14,7 @@ namespace PlayModeTestNodeRecorder
     using Node = NodeView;
     sealed partial class TestNodeWindowView
     {
+        private Vector2 scrollPos = Vector2.zero;
         private string fieldString = "";
         private ViewModel viewModel = new ViewModel ();
         private Menu nodeMenu = new Menu (MenuType.Node);
@@ -22,7 +25,7 @@ namespace PlayModeTestNodeRecorder
         public void Init ()
         {
             config = viewModel.LoadConfig ();
-            viewModel.CreateNode (NodeType.End, new Vector2 (position.width / 2f, position.height / 2f));
+            viewModel.CreateNode (NodeType.Begin, new Vector2 (position.width / 2f, position.height / 2f));
         }
 
         private void DownDispatch (Event current)
@@ -88,6 +91,7 @@ namespace PlayModeTestNodeRecorder
                     viewModel.CreateLine (selectedNode, current.mousePosition);
                     break;
                 case SegueProcess.Make:
+                    // TODO: Type別に生成する処理
                     viewModel.CreateNode (NodeType.Touch, current.mousePosition);
                     break;
                 case SegueProcess.Delete:
@@ -106,7 +110,10 @@ namespace PlayModeTestNodeRecorder
                 {
                     viewModel.SavingScriptFile (fieldString);
                 }
-                GUILayout.Button ("Load");
+                if (GUILayout.Button ("Load"))
+                {
+                    // TODO: Scriptを読み込んでNodeを出す処理
+                }
             }
         }
     }
@@ -123,6 +130,8 @@ namespace PlayModeTestNodeRecorder
 
         void OnGUI ()
         {
+            // TODO: Scroll範囲をNodeがある範囲にする
+            scrollPos = GUI.BeginScrollView (new Rect (0, 0, position.width, position.height), scrollPos, new Rect (0, 0, 1000, 1000));
             EventUIDisplay ();
             var current = Event.current;
 
@@ -140,6 +149,7 @@ namespace PlayModeTestNodeRecorder
                 node.Draw ();
             }
             EndWindows ();
+            GUI.EndScrollView ();
 
             SelectedAction (current);
             switch (current.type)
@@ -156,6 +166,21 @@ namespace PlayModeTestNodeRecorder
         void Update ()
         {
             Repaint ();
+
+            if (Application.isPlaying && Input.GetMouseButtonDown (0))
+            {
+                if (Mathf.Sign (Input.mousePosition.x) == 1 && Mathf.Sign (Input.mousePosition.y) == 1)
+                {
+                    // TODO: Type別に生成する処理
+                    var lastNodeRect = viewModel.NodeViews.Last ().ViewableRect;
+                    var viewablePoint = lastNodeRect.position + lastNodeRect.size * 2f;
+                    var type = NodeType.Touch;
+                    type.SetTouchPosition (Input.mousePosition);
+                    viewModel.CreateNode (type, viewablePoint);
+                    viewModel.CreateLine (selectedNode, viewablePoint);
+                    viewModel.ConnectNode (viewablePoint);
+                }
+            }
         }
     }
 }

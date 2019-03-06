@@ -10,6 +10,37 @@ namespace PlayModeTestNodeRecorder
         Swipe,
         Drag,
         Delay,
-        End
+        Begin
+    }
+
+    static class NodeTypeExtensions
+    {
+        private static Vector2? touchPositionCache = null;
+        public static NodeView ToNode (this NodeType type, Vector2 position)
+        {
+            NodeView node = null;
+            switch (type)
+            {
+                case NodeType.Touch:
+                    if (touchPositionCache == null)
+                    {
+                        node = new TouchNodeView (position, Vector2.one * 130);
+                    }
+                    else
+                    {
+                        node = new TouchNodeView (position, Vector2.one * 130, touchPositionCache.Value);
+                        touchPositionCache = null;
+                    }
+                    break;
+                case NodeType.Begin:
+                    node = new BeginNodeView (position, Vector2.one * 100);
+                    break;
+            }
+            return node;
+        }
+        public static void SetTouchPosition (this NodeType type, Vector2 position)
+        {
+            touchPositionCache = position;
+        }
     }
 }
