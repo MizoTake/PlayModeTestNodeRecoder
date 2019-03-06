@@ -7,7 +7,7 @@ namespace PlayModeTestNodeRecorder
 {
     using Line = LineView;
     using Type = NodeType;
-    partial class NodeView : IViewable
+    abstract partial class NodeView : IViewable
     {
         private Rect rect;
         private Line end;
@@ -56,10 +56,8 @@ namespace PlayModeTestNodeRecorder
             return new Vector2 (rect.x, rect.y + rect.height / 2f);
         }
 
-        static void DrawNodeWindow (int id)
-        {
-            GUI.DragWindow ();
-        }
+        protected abstract void DrawNodeWindow (int id);
+
     }
 
     partial class NodeView : ISelected
@@ -72,7 +70,7 @@ namespace PlayModeTestNodeRecorder
     {
         public void Draw ()
         {
-            GUI.Window (Id.Value, rect, NodeView.DrawNodeWindow, Type.ToString ());
+            GUI.Window (Id.Value, rect, DrawNodeWindow, Type.ToString ());
         }
     }
 }

@@ -45,13 +45,22 @@ namespace PlayModeTestNodeRecorder
                 {
                     foreach (var node in nodeArray)
                     {
-                        builder.Append ("\t").Append ("\t").AppendLine (node.Type.ToString () + "(Vector2.zero);");
+                        builder.Append ("\t").Append ("\t").AppendLine (NodeTypeToMethodString (node));
                     }
                 }
                 builder.Append ("\t").AppendLine ("}");
             }
             builder.AppendLine ("}");
             return builder;
+        }
+
+        private string NodeTypeToMethodString (NodeView node)
+        {
+            if (node is TouchNodeView touch)
+            {
+                return node.Type.ToString () + "(new Vector2(" + touch.ScreenPoint.x + "," + touch.ScreenPoint.y + "));";
+            }
+            return "";
         }
     }
 }

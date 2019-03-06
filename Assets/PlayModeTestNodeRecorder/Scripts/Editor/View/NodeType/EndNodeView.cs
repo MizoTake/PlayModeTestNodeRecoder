@@ -10,5 +10,10 @@ namespace PlayModeTestNodeRecorder
         {
 
         }
+
+        protected override void DrawNodeWindow (int id)
+        {
+
+        }
     }
 }

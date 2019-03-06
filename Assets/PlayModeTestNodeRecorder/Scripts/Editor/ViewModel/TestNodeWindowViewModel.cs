@@ -41,7 +41,7 @@ namespace PlayModeTestNodeRecorder
             switch (type)
             {
                 case NodeType.Touch:
-                    node = new TouchNodeView (position, Vector2.one * 100);
+                    node = new TouchNodeView (position, Vector2.one * 130);
                     break;
                 case NodeType.End:
                     endNode = new EndNodeView (position, Vector2.one * 100);
@@ -108,6 +108,7 @@ namespace PlayModeTestNodeRecorder
 
         public void SavingScriptFile (string fieldText)
         {
+            if (fieldText == "") return;
             var nodeList = new List<Node> ();
             var next = endNode.BeforeNode;
             while (next != null)

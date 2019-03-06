@@ -124,18 +124,8 @@ namespace PlayModeTestNodeRecorder
         void OnGUI ()
         {
             EventUIDisplay ();
-
             var current = Event.current;
-            SelectedAction (current);
-            switch (current.type)
-            {
-                case EventType.MouseDown:
-                    DownDispatch (current);
-                    break;
-                case EventType.MouseDrag:
-                    DragDispatch (current);
-                    break;
-            }
+
             if (viewModel.LastCreatedLine != null)
             {
                 viewModel.LastCreatedLine.UpdateEndPoint (current.mousePosition);
@@ -150,6 +140,17 @@ namespace PlayModeTestNodeRecorder
                 node.Draw ();
             }
             EndWindows ();
+
+            SelectedAction (current);
+            switch (current.type)
+            {
+                case EventType.MouseDown:
+                    DownDispatch (current);
+                    break;
+                case EventType.MouseDrag:
+                    DragDispatch (current);
+                    break;
+            }
         }
 
         void Update ()

@@ -7,8 +7,7 @@ public class Sample : NodeTestScript
 	[Test]
 	public void TestMain()
 	{
-		Touch(Vector2.zero);
-		Touch(Vector2.zero);
-		Touch(Vector2.zero);
+		Touch(new Vector2(30,20));
+		Touch(new Vector2(100,50));
 	}
 }
