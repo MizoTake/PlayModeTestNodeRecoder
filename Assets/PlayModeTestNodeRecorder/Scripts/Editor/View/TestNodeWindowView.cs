@@ -172,12 +172,14 @@ namespace PlayModeTestNodeRecorder
                 if (Mathf.Sign (Input.mousePosition.x) == 1 && Mathf.Sign (Input.mousePosition.y) == 1)
                 {
                     // TODO: Type別に生成する処理
-                    var lastNodeRect = viewModel.NodeViews.Last ().ViewableRect;
+                    var lastNode = viewModel.NodeViews.Last ();
+                    var lastNodeRect = lastNode.ViewableRect;
                     var viewablePoint = lastNodeRect.position + lastNodeRect.size * 2f;
+                    // TODO: 依存なので除去りたい
                     var type = NodeType.Touch;
                     type.SetTouchPosition (Input.mousePosition);
                     viewModel.CreateNode (type, viewablePoint);
-                    viewModel.CreateLine (selectedNode, viewablePoint);
+                    viewModel.CreateLine (lastNode, viewablePoint);
                     viewModel.ConnectNode (viewablePoint);
                 }
             }

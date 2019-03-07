@@ -84,6 +84,7 @@ namespace PlayModeTestNodeRecorder
                 if (selectedNode.BeginLine == LastCreatedLine)
                 {
                     selectedNode.BeginLine = null;
+                    LastCreatedLine = null;
                     return;
                 }
                 chaceBeforeNode.NextNode = selectedNode;
