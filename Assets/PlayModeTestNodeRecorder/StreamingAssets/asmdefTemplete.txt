@@ -1,12 +1,17 @@
 {
-  "name": "Tests",
-  "references": ["PlayModeTestNodeRecorder"],
-  "optionalUnityReferences": ["TestAssemblies"],
-  "includePlatforms": [],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": []
+    "name": "Tests",
+    "references": [
+        "PlayModeTestNodeRecorder",
+        "PlayModeTestNodeRecorder.PlayMode"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
 }

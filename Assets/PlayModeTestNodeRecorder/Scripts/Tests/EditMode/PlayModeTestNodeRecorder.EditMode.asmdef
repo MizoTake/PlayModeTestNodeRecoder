@@ -1,12 +1,14 @@
 {
-    "name": "Tests.PlayMode",
+    "name": "PlayModeTestNodeRecorder.EditMode",
     "references": [
         "PlayModeTestNodeRecorder"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
