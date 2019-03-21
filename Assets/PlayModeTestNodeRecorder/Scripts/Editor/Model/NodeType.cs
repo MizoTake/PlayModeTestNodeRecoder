@@ -33,7 +33,7 @@ namespace PlayModeTestNodeRecorder
                     }
                     break;
                 case NodeType.Delay:
-                    node = new DelayNodeView (position, Vector2.one * 200, 0);
+                    node = new DelayNodeView (position, Vector2.one * 180, 0);
                     break;
                 case NodeType.Begin:
                     node = new BeginNodeView (position, Vector2.one * 100);

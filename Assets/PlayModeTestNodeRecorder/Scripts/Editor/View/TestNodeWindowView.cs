@@ -73,7 +73,7 @@ namespace PlayModeTestNodeRecorder
                     }
                     else
                     {
-                        // TODO: 矩形選択処理
+                        // TODO: 矩形一括選択処理
                     }
                     break;
                 case 1: // 右クリック
@@ -125,8 +125,7 @@ namespace PlayModeTestNodeRecorder
         [MenuItem ("Window/Test Node Editor")]
         static void Open ()
         {
-            var nodeEditorWindow = CreateInstance<TestNodeWindowView> ();
-            nodeEditorWindow.Show ();
+            var nodeEditorWindow = GetWindow<TestNodeWindowView> (typeof (SceneView));
             nodeEditorWindow.Init ();
         }
 

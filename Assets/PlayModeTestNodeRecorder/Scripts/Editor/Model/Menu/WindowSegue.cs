@@ -15,6 +15,7 @@ namespace PlayModeTestNodeRecorder
                 var result = new List<string> ();
                 foreach (var type in Enum.GetValues (typeof (NodeType)))
                 {
+                    if (type.Equals (NodeType.Begin)) continue;
                     result.Add (SegueProcess.Make + "/" + type);
                 }
                 result.Add (SegueProcess.Delete);

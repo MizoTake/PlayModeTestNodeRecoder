@@ -35,7 +35,6 @@ namespace PlayModeTestNodeRecorder
             return config;
         }
 
-        // TODO: Type別で引数を作る？
         public void CreateNode (NodeType type, Vector2 position)
         {
             Node node = null;
