@@ -30,6 +30,7 @@ namespace PlayModeTestNodeRecorder
             AssetDatabase.Refresh (ImportAssetOptions.ImportRecursive);
         }
 
+        // TODO: Delay処理を考えると純粋メソッドではなくコルーチンでメソッドをコールした方が良さそう
         private StringBuilder WriteClassElement (StringBuilder builder, string className, NodeView[] nodeArray)
         {
             builder.AppendLine ("using PlayModeTestNodeRecorder;");

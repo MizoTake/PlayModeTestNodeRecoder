@@ -32,6 +32,9 @@ namespace PlayModeTestNodeRecorder
                         touchPositionCache = null;
                     }
                     break;
+                case NodeType.Delay:
+                    node = new DelayNodeView (position, Vector2.one * 200, 0);
+                    break;
                 case NodeType.Begin:
                     node = new BeginNodeView (position, Vector2.one * 100);
                     break;

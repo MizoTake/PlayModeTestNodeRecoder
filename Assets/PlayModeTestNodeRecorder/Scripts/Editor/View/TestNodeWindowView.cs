@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -85,14 +86,15 @@ namespace PlayModeTestNodeRecorder
         {
             var onNode = selectedNode != null;
             var selected = onNode ? nodeMenu.ChoiceTitle : windowMenu.ChoiceTitle;
-            switch (selected)
+            var splitString = Regex.Split (selected ?? "", "/");
+            switch (splitString[0])
             {
                 case SegueProcess.Transition:
                     viewModel.CreateLine (selectedNode, current.mousePosition);
                     break;
                 case SegueProcess.Make:
-                    // TODO: Type別に生成する処理
-                    viewModel.CreateNode (NodeType.Touch, current.mousePosition);
+                    var type = (NodeType) Enum.Parse (typeof (NodeType), splitString[1]);
+                    viewModel.CreateNode (type, current.mousePosition);
                     break;
                 case SegueProcess.Delete:
                     // TODO: Nodeをベースに削除処理を書く、紐づくLineも消す

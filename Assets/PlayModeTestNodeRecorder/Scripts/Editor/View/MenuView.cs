@@ -33,7 +33,8 @@ namespace PlayModeTestNodeRecorder
             foreach (var item in data)
             {
                 drawingMenu.AddItem (new GUIContent (item), false, viewModel.Choice, item);
-                if (item != data.Last ()) drawingMenu.AddSeparator ("");
+                // TODO: 入れ子構造にすると再帰処理とかでの対応が必要そのうち
+                // if (item != data.Last ()) drawingMenu.AddSeparator ("");
             }
         }
     }

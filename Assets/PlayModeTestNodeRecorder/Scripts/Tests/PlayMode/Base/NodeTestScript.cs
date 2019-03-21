@@ -9,6 +9,9 @@ namespace PlayModeTestNodeRecorder
     {
         public bool IsTestFinished { get; private set; }
 
-        protected void Touch (Vector2 position) { }
+        protected void Touch (Vector2 position)
+        {
+
+        }
     }
 }
