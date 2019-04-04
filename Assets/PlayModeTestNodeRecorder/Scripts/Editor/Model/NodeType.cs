@@ -15,7 +15,9 @@ namespace PlayModeTestNodeRecorder
 
     static class NodeTypeExtensions
     {
+        private static float delayTime = 0;
         private static Vector2? touchPositionCache = null;
+
         public static NodeView ToNode (this NodeType type, Vector2 position)
         {
             NodeView node = null;
@@ -33,7 +35,7 @@ namespace PlayModeTestNodeRecorder
                     }
                     break;
                 case NodeType.Delay:
-                    node = new DelayNodeView (position, Vector2.one * 180, 0);
+                    node = new DelayNodeView (position, Vector2.one * 180, delayTime);
                     break;
                 case NodeType.Begin:
                     node = new BeginNodeView (position, Vector2.one * 100);
@@ -41,9 +43,15 @@ namespace PlayModeTestNodeRecorder
             }
             return node;
         }
+
         public static void SetTouchPosition (this NodeType type, Vector2 position)
         {
             touchPositionCache = position;
+        }
+
+        public static void SetDelayTime (this NodeType type, float time)
+        {
+            delayTime = time;
         }
     }
 }

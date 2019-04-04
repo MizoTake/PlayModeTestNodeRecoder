@@ -22,6 +22,7 @@ namespace PlayModeTestNodeRecorder
         private Menu windowMenu = new Menu (MenuType.Window);
         private Node selectedNode = null;
         private Config config;
+        private float delayTime = 0;
 
         public void Init ()
         {
@@ -118,6 +119,23 @@ namespace PlayModeTestNodeRecorder
                 }
             }
         }
+
+        private void CreateNode (NodeType type, Node lastNode)
+        {
+            var lastNodeRect = lastNode.ViewableRect;
+            var viewablePoint = lastNodeRect.position + lastNodeRect.size * 1.2f;
+            viewModel.CreateNode (type, viewablePoint);
+            viewModel.CreateLine (lastNode, viewablePoint);
+            viewModel.ConnectNode (viewablePoint);
+        }
+
+        private void CrateDelayNode ()
+        {
+            var delay = NodeType.Delay;
+            delay.SetDelayTime (delayTime);
+            CreateNode (delay, viewModel.NodeViews.Last ());
+            delayTime = 0;
+        }
     }
 
     partial class TestNodeWindowView : EditorWindow
@@ -166,22 +184,24 @@ namespace PlayModeTestNodeRecorder
 
         void Update ()
         {
+            delayTime += Time.deltaTime;
             Repaint ();
 
-            if (Application.isPlaying && Input.GetMouseButtonDown (0))
+            if (Application.isPlaying)
             {
                 if (Mathf.Sign (Input.mousePosition.x) == 1 && Mathf.Sign (Input.mousePosition.y) == 1)
                 {
                     // TODO: Type別に生成する処理
+                    NodeType? type = null;
+                    if (Input.GetMouseButtonDown (0))
+                    {
+                        type = NodeType.Touch;
+                    }
+                    if (!type.HasValue) return;
+                    CrateDelayNode ();
                     var lastNode = viewModel.NodeViews.Last ();
-                    var lastNodeRect = lastNode.ViewableRect;
-                    var viewablePoint = lastNodeRect.position + lastNodeRect.size * 2f;
-                    // TODO: 依存なので除去りたい
-                    var type = NodeType.Touch;
-                    type.SetTouchPosition (Input.mousePosition);
-                    viewModel.CreateNode (type, viewablePoint);
-                    viewModel.CreateLine (lastNode, viewablePoint);
-                    viewModel.ConnectNode (viewablePoint);
+                    type.Value.SetTouchPosition (Input.mousePosition);
+                    CreateNode (type.Value, lastNode);
                 }
             }
         }
