@@ -99,6 +99,7 @@ namespace PlayModeTestNodeRecorder
                     break;
                 case SegueProcess.Delete:
                     // TODO: Nodeをベースに削除処理を書く、紐づくLineも消す
+                    viewModel.RemoveNode (selectedNode);
                     break;
             }
         }

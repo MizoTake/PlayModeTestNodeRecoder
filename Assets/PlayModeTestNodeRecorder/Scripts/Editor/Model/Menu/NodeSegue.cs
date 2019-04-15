@@ -8,7 +8,8 @@ namespace PlayModeTestNodeRecorder
     {
         public static string[] Items => new string[]
         {
-            SegueProcess.Transition
+            SegueProcess.Transition,
+            SegueProcess.Delete
         };
     }
 }

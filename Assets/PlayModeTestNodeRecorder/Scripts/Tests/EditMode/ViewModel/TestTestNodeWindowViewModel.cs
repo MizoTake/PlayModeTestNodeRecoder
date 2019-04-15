@@ -35,6 +35,23 @@ namespace PlayModeTestNodeRecorder.Tests.EditMode
         }
 
         [Test]
+        public void RemoveNodeCount ()
+        {
+            var viewModel = new ViewModel ();
+            Assert.AreEqual (viewModel.NodeViews.Count, 0);
+            var rand = Random.Range (0, 10);
+            for (var i = 0; i < rand; i++)
+            {
+                viewModel.CreateNode (NodeType.Touch, Vector2.zero);
+            }
+            for (var i = viewModel.NodeViews.Count - 1; i >= 0; i--)
+            {
+                viewModel.RemoveNode (viewModel.NodeViews[i]);
+            }
+            Assert.AreEqual (viewModel.NodeViews.Count, 0);
+        }
+
+        [Test]
         public void CreateLine ()
         {
             var viewModel = new ViewModel ();

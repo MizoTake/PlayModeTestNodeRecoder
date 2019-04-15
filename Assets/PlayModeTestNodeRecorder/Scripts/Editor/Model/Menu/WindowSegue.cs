@@ -18,7 +18,6 @@ namespace PlayModeTestNodeRecorder
                     if (type.Equals (NodeType.Begin)) continue;
                     result.Add (SegueProcess.Make + "/" + type);
                 }
-                result.Add (SegueProcess.Delete);
                 return result.ToArray ();
             }
         }

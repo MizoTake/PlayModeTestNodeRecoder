@@ -52,6 +52,13 @@ namespace PlayModeTestNodeRecorder
             nodeViews.Add (node);
         }
 
+        public void RemoveNode (Node target)
+        {
+            lineViews.Remove (target.BeginLine);
+            lineViews.Remove (target.EndLine);
+            nodeViews.Remove (target);
+        }
+
         public void CreateLine (Node begin, Vector2 mousePosition)
         {
             var line = new Line (begin.BeginLinePoint (), mousePosition);
