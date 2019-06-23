@@ -2,7 +2,7 @@ version: 2.1
 executors:
   unity_executor:
     docker:
-      - image: gableroux/unity3d:2018.3.3f1
+      - image: gableroux/unity3d:2019.1.0f2
     environment:
       BUILD_NAME: SampleBuild
   unity_android_executor:
