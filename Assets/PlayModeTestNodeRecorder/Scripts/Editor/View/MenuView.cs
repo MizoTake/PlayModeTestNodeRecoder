@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -28,7 +25,7 @@ namespace PlayModeTestNodeRecorder
             CreateList (viewModel.ItemData);
         }
 
-        private void CreateList (string[] data)
+        private void CreateList (IEnumerable<string> data)
         {
             foreach (var item in data)
             {

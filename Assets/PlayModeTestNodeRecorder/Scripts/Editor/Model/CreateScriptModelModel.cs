@@ -21,18 +21,23 @@ namespace PlayModeTestNodeRecorder
 
             Directory.CreateDirectory (Application.dataPath);
 
-            if (AssetDatabase.LoadAssetAtPath (assetPath.Replace ("/Editor/..", ""), typeof (UnityEngine.Object)) != null && EditorPrefs.GetInt (this.GetType ().Name, 0) == text.GetHashCode ())
+            if (AssetDatabase.LoadAssetAtPath (assetPath.Replace ("/Editor/..", ""), typeof (Object)) != null && EditorPrefs.GetInt (GetType ().Name, 0) == text.GetHashCode ())
                 return;
 
             File.Copy (Application.dataPath + "/PlayModeTestNodeRecorder/StreamingAssets/asmdefTemplete.txt", Application.dataPath + "/" + path + "/Tests.asmdef", true);
             File.WriteAllText (assetPath, text);
-            EditorPrefs.SetInt (this.GetType ().Name, text.GetHashCode ());
+            EditorPrefs.SetInt (GetType ().Name, text.GetHashCode ());
             AssetDatabase.Refresh (ImportAssetOptions.ImportRecursive);
         }
 
         // TODO: Delay処理を考えると純粋メソッドではなくコルーチンでメソッドをコールした方が良さそう
         private StringBuilder WriteClassElement (StringBuilder builder, string className, NodeView[] nodeArray)
         {
+            // TODO: コメントアウトでNodeのjsonを埋め込んでおく
+            builder.AppendLine ("/*");
+            builder.AppendLine (JsonUtility.ToJson(nodeArray));
+            builder.AppendLine ("*/");
+            builder.AppendLine ("\t");
             builder.AppendLine ("using PlayModeTestNodeRecorder;");
             builder.AppendLine ("using UnityEngine;");
             builder.AppendLine ("using NUnit.Framework;");
@@ -59,7 +64,7 @@ namespace PlayModeTestNodeRecorder
         {
             if (node is TouchNodeView touch)
             {
-                return node.Type.ToString () + "(new Vector2(" + touch.ScreenPoint.x + "f ," + touch.ScreenPoint.y + "f));";
+                return node.Type + "(new Vector2(" + touch.ScreenPoint.x + "f ," + touch.ScreenPoint.y + "f));";
             }
             return "";
         }

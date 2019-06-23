@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using Assert = UnityEngine.Assertions.Assert;
 
 namespace PlayModeTestNodeRecorder
 {
@@ -17,9 +13,9 @@ namespace PlayModeTestNodeRecorder
     {
         private Vector2 scrollPos = Vector2.zero;
         private string fieldString = "";
-        private ViewModel viewModel = new ViewModel ();
-        private Menu nodeMenu = new Menu (MenuType.Node);
-        private Menu windowMenu = new Menu (MenuType.Window);
+        private readonly ViewModel viewModel = new ViewModel ();
+        private readonly Menu nodeMenu = new Menu (MenuType.Node);
+        private readonly Menu windowMenu = new Menu (MenuType.Window);
         private Node selectedNode = null;
         private Config config;
         private float delayTime = 0;
@@ -154,10 +150,7 @@ namespace PlayModeTestNodeRecorder
             EventUIDisplay ();
             var current = Event.current;
 
-            if (viewModel.LastCreatedLine != null)
-            {
-                viewModel.LastCreatedLine.UpdateEndPoint (current.mousePosition);
-            }
+            viewModel.LastCreatedLine?.UpdateEndPoint (current.mousePosition);
             foreach (var line in viewModel.LineViews)
             {
                 line.Draw ();
@@ -187,23 +180,19 @@ namespace PlayModeTestNodeRecorder
             delayTime += Time.deltaTime;
             Repaint ();
 
-            if (Application.isPlaying)
+            if (!Application.isPlaying) return;
+            if (Mathf.Sign(Input.mousePosition.x) != 1 || Mathf.Sign(Input.mousePosition.y) != 1) return;
+            // TODO: Type別に生成する処理
+            NodeType? type = null;
+            if (Input.GetMouseButtonDown (0))
             {
-                if (Mathf.Sign (Input.mousePosition.x) == 1 && Mathf.Sign (Input.mousePosition.y) == 1)
-                {
-                    // TODO: Type別に生成する処理
-                    NodeType? type = null;
-                    if (Input.GetMouseButtonDown (0))
-                    {
-                        type = NodeType.Touch;
-                    }
-                    if (!type.HasValue) return;
-                    CrateDelayNode ();
-                    var lastNode = viewModel.NodeViews.Last ();
-                    type.Value.SetTouchPosition (Input.mousePosition);
-                    CreateNode (type.Value, lastNode);
-                }
+                type = NodeType.Touch;
             }
+            if (!type.HasValue) return;
+            CrateDelayNode ();
+            var lastNode = viewModel.NodeViews.Last ();
+            type.Value.SetTouchPosition (Input.mousePosition);
+            CreateNode (type.Value, lastNode);
         }
     }
 }

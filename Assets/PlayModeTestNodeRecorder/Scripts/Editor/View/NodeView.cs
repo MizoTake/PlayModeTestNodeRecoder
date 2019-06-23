@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace PlayModeTestNodeRecorder
 {
     using Line = LineView;
     using Type = NodeType;
+    [Serializable]
     abstract partial class NodeView : IViewable
     {
         private Rect rect;
@@ -17,10 +19,7 @@ namespace PlayModeTestNodeRecorder
         public Line BeginLine { get; set; }
         public Line EndLine
         {
-            get
-            {
-                return end;
-            }
+            get => end;
             set
             {
                 var line = value;
@@ -63,7 +62,7 @@ namespace PlayModeTestNodeRecorder
     partial class NodeView : ISelected
     {
         public bool Selected =>
-            throw new System.NotImplementedException ();
+            throw new NotImplementedException ();
     }
 
     partial class NodeView : IDrawable
