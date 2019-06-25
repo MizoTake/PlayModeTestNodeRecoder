@@ -6,7 +6,7 @@ namespace PlayModeTestNodeRecorder
 {
     struct NodeSegue
     {
-        public static string[] Items => new string[]
+        public static string[] Items => new []
         {
             SegueProcess.Transition,
             SegueProcess.Delete

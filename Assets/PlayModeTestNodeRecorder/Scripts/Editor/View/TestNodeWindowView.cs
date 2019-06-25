@@ -16,9 +16,9 @@ namespace PlayModeTestNodeRecorder
         private readonly ViewModel viewModel = new ViewModel ();
         private readonly Menu nodeMenu = new Menu (MenuType.Node);
         private readonly Menu windowMenu = new Menu (MenuType.Window);
-        private Node selectedNode = null;
+        private Node selectedNode;
         private Config config;
-        private float delayTime = 0;
+        private float delayTime;
 
         public void Init ()
         {
