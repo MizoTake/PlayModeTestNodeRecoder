@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   orb-tools: circleci/orb-tools@8.27.4
-  unity-ci: mizotake/unity-ci@dev:0.0.1
+  unity-ci: mizotake/unity-ci@0.0.1
 
 executors:
   unity_executor:
