@@ -1,8 +1,7 @@
 {
-    "name": "Tests",
+    "name": "UniTestRecordPlayer.PlayMode",
     "references": [
-        "PlayModeTestNodeRecorder",
-        "PlayModeTestNodeRecorder.PlayMode"
+        "PlayModeTestNodeRecorder"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
@@ -13,5 +12,6 @@
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [],
+    "versionDefines": []
 }

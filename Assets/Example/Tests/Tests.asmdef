@@ -1,8 +1,8 @@
 {
     "name": "Tests",
     "references": [
-        "PlayModeTestNodeRecorder",
-        "PlayModeTestNodeRecorder.PlayMode"
+        "UniTestRecordPlayer",
+        "UniTestRecordPlayer.PlayMode"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
