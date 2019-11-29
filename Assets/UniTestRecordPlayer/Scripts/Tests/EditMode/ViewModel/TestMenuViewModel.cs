@@ -21,26 +21,5 @@ namespace PlayModeTestNodeRecorder.Tests.EditMode
         {
 
         }
-
-        [Test]
-        public void MenuTypeNode ()
-        {
-            IChoosable viewModel = new MenuViewModel (MenuType.Node);
-            Assert.IsTrue (NodeSegue.Items.SequenceEqual (viewModel.ItemData));
-        }
-
-        [Test]
-        public void MenuTypeWindow ()
-        {
-            IChoosable viewModel = new MenuViewModel (MenuType.Window);
-            Assert.IsTrue (WindowSegue.Items.SequenceEqual (viewModel.ItemData));
-        }
-
-        [Test]
-        public void SelectItemTypeWindow ()
-        {
-            IChoosable viewModel = new MenuViewModel (MenuType.Window);
-            Assert.IsTrue (WindowSegue.Items.SequenceEqual (viewModel.ItemData));
-        }
     }
 }

@@ -10,11 +10,11 @@ namespace PlayModeTestNodeRecorder
 {
     class CreateScriptModel
     {
-        public void SavingFile (string path, string className, NodeView[] nodeArray)
+        public void SavingFile (string path, string className)
         {
             var builder = new StringBuilder ();
 
-            builder = WriteClassElement (builder, className, nodeArray);
+            builder = WriteClassElement (builder, className);
 
             var text = builder.ToString ();
             var assetPath = Application.dataPath + "/" + path + "/" + className + ".cs";
@@ -31,11 +31,11 @@ namespace PlayModeTestNodeRecorder
         }
 
         // TODO: Delay処理を考えると純粋メソッドではなくコルーチンでメソッドをコールした方が良さそう
-        private StringBuilder WriteClassElement (StringBuilder builder, string className, NodeView[] nodeArray)
+        private StringBuilder WriteClassElement (StringBuilder builder, string className)
         {
             // TODO: コメントアウトでNodeのjsonを埋め込んでおく
             builder.AppendLine ("/*");
-            builder.AppendLine (JsonUtility.ToJson(nodeArray));
+//            builder.AppendLine (JsonUtility.ToJson(nodeArray));
             builder.AppendLine ("*/");
             builder.AppendLine ("\t");
             builder.AppendLine ("using PlayModeTestNodeRecorder;");
@@ -49,10 +49,10 @@ namespace PlayModeTestNodeRecorder
                 builder.Append ("\t").AppendLine ("public void TestMain()");
                 builder.Append ("\t").AppendLine ("{");
                 {
-                    foreach (var node in nodeArray)
-                    {
-                        builder.Append ("\t").Append ("\t").AppendLine (NodeTypeToMethodString (node));
-                    }
+//                    foreach (var node in nodeArray)
+//                    {
+//                        builder.Append ("\t").Append ("\t").AppendLine (NodeTypeToMethodString ());
+//                    }
                 }
                 builder.Append ("\t").AppendLine ("}");
             }
@@ -60,12 +60,12 @@ namespace PlayModeTestNodeRecorder
             return builder;
         }
 
-        private string NodeTypeToMethodString (NodeView node)
+        private string NodeTypeToMethodString ()
         {
-            if (node is TouchNodeView touch)
-            {
-                return node.Type + "(new Vector2(" + touch.ScreenPoint.x + "f ," + touch.ScreenPoint.y + "f));";
-            }
+//            if (node is TouchNodeView touch)
+//            {
+//                return node.Type + "(new Vector2(" + touch.ScreenPoint.x + "f ," + touch.ScreenPoint.y + "f));";
+//            }
             return "";
         }
     }
