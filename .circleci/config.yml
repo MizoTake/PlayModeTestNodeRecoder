@@ -5,8 +5,9 @@ orbs:
 
 executors:
   unity_executor:
-    docker:
-      - image: gableroux/unity3d:2019.3.0f1
+    machine:
+      image: circleci/classic:edge
+      docker_layer_caching: true
 
 jobs:
   setup:
