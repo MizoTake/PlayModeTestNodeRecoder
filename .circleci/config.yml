@@ -1,22 +1,84 @@
 version: 2.1
 
 orbs:
-  unity-ci: mizotake/unity-ci@0.0.1
+  unity-ci: mizotake/unity-ci@0.1.2
 
 executors:
   unity_executor:
     docker:
-      - image: gableroux/unity3d:2019.1.0f2
+      - image: gableroux/unity3d:2019.3.0f1
+
+jobs:
+  setup:
+    machine: true
+    steps:
+      - checkout
+      - run: sudo mkdir -p /activateTools
+      - run: sudo chmod -R 777 /activateTools
+      - run: touch /activateTools/ProjectVersion.txt && cat ~/project/ProjectSettings/ProjectVersion.txt > sudo /activateTools/ProjectVersion.txt
+      - restore_cache:
+          key: unity-license-{{ checksum "/activateTools/ProjectVersion.txt" }}
+      - persist_to_workspace:
+          root: /activateTools
+          paths:
+            - .
+  unity-ci-test-playmode:
+    executor: unity_executor
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - attach_workspace:
+          at: /activateTools
+      - checkout
+      - unity-ci/unity_activate
+      - unity-ci/test:
+          mode: playmode
+      - save_cache:
+          key: unity-license-{{ checksum "/activateTools/ProjectVersion.txt" }}
+          paths:
+            - /activateTools/Unity.ulf
+      - persist_to_workspace:
+          root: /activateTools
+          paths:
+            - .
+  unity-ci-test-editmode:
+    executor: unity_executor
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - attach_workspace:
+          at: /activateTools
+      - checkout
+      - unity-ci/unity_activate
+      - unity-ci/test:
+          mode: editmode
+      - save_cache:
+          key: unity-license-{{ checksum "/activateTools/ProjectVersion.txt" }}
+          paths:
+            - /activateTools/Unity.ulf
+      - persist_to_workspace:
+          root: /activateTools
+          paths:
+            - .
 
 workflows:
   version: 2
-  unity-ci-test:
+  test:
     jobs:
-      - unity-ci/test:
-          name: Edit Mode Test
+      - setup
+      - unity-ci/outputAlf:
           exec: unity_executor
-          mode: editmode
-      - unity-ci/test:
-          name: Play Mode Test
-          exec: unity_executor
-          mode: playmode
+          requires:
+            - setup
+      - unity-ci/cloneActivateTool:
+          requires:
+            - unity-ci/outputAlf
+      - unity-ci/outputUlf:
+          requires:
+            - unity-ci/cloneActivateTool
+      - unity-ci-test-playmode:
+          requires:
+            - unity-ci/outputUlf
+      - unity-ci-test-editmode:
+          requires:
+            - unity-ci/outputUlf
