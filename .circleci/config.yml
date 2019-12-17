@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   unity-ci: mizotake/unity-ci@0.1.2
-  
+
 executors:
   unity_executor:
     machine:
@@ -15,7 +15,8 @@ jobs:
     steps:
       - checkout
       - run: sudo mkdir -p /activateTools
-      - run: sudo touch /activateTools/ProjectVersion.txt && sudo cat ~/project/ProjectSettings/ProjectVersion.txt > sudo /activateTools/ProjectVersion.txt
+      - run: sudo chmod -R 777 /activateTools
+      - run: touch /activateTools/ProjectVersion.txt && cat ~/project/ProjectSettings/ProjectVersion.txt > sudo /activateTools/ProjectVersion.txt
       - restore_cache:
           key: unity-license-{{ checksum "/activateTools/ProjectVersion.txt" }}
       - persist_to_workspace:
@@ -29,7 +30,6 @@ jobs:
           docker_layer_caching: true
       - attach_workspace:
           at: /activateTools
-      - run: cat ~/project/ProjectSettings/ProjectVersion.txt > /activateTools/ProjectVersion.txt
       - checkout
       - unity-ci/unity_activate
       - unity-ci/test:
@@ -47,7 +47,6 @@ jobs:
     steps:
       - setup_remote_docker:
           docker_layer_caching: true
-      - run: cat ~/project/ProjectSettings/ProjectVersion.txt > /activateTools/ProjectVersion.txt
       - attach_workspace:
           at: /activateTools
       - checkout
